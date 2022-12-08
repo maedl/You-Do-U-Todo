@@ -24,6 +24,7 @@ module.exports = {
   },
   rules: {
     curly: ['error', 'all'],
+    'require-jsdoc': 'off',
     indent: ['error', 2, { SwitchCase: 1 }],
     'max-len': ['error', { code: 120 }],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
