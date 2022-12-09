@@ -1,7 +1,7 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
   extends: ['airbnb-base', 'airbnb-typescript/base'],
   overrides: [
@@ -23,9 +23,9 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    curly: ['error', 'all'],
+    'curly': ['error', 'all'],
     'require-jsdoc': 'off',
-    indent: ['error', 2, { SwitchCase: 1 }],
+    'indent': ['error', 2, { SwitchCase: 1 }],
     'max-len': ['error', { code: 120 }],
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
@@ -33,5 +33,5 @@ module.exports = {
     'no-unused-vars': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-unreachable': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
     'no-undef': process.env.NODE_ENV === 'production' ? 'error' : 'warn',
-  }
-}
+  },
+};
