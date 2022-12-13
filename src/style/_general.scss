@@ -1,0 +1,11 @@
+:root {
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  font-size: rem(16px);
+  background-color: var(--background-color);
+  color: white;
+
+  --header-height: 10vh;
+  --footer-height: 10vh; // body padding-bottom samma värde i mobile
+  --primary-color: red;
+  --background-color: rgb(29, 28, 28); // för root, footer & info-bar..
+}

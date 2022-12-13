@@ -7,6 +7,7 @@ dist-ssr
 
 # Local files
 *.local
+kravspec.md
 
 # JS ecosystem
 node_modules
