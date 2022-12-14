@@ -2,9 +2,21 @@
   text-decoration: line-through;
 }
 
+.handwritten {
+  font-family: var(--handwritten-font);
+  font-size: 1.1rem;
+}
+
 .no-items {
   width: 100%;
   padding: 0.5rem 1rem;
   border: 1px solid #fff;
   border-radius: 10px;
+}
+
+@mixin flex-center-col {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

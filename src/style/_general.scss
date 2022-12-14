@@ -4,8 +4,10 @@
   background-color: var(--background-color);
   color: white;
 
-  --header-height: 10vh;
+  --header-height: 14vh;
   --footer-height: 10vh; // body padding-bottom samma värde i mobile
-  --primary-color: red;
-  --background-color: rgb(29, 28, 28); // för root, footer & info-bar..
+  --handwritten-font: 'Caveat', cursive;
+  --primary-color: rgb(145, 70, 0);
+  --background-color: rgb(29 28 28); // för root, footer & info-bar..
+  --rounded-corners: 10px;
 }
