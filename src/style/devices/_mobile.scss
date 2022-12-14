@@ -24,10 +24,8 @@ header {
 }
 
 .logo-container {
-  span {
-    font-weight: 700;
-    font-size: 2rem;
-    text-shadow: -1px 2px 2px rgba(114, 114, 114, 90%);
+  h1 {
+    text-shadow: -1px 2px 2px rgba(114, 114, 114, 0.9);
   }
 }
 
@@ -44,22 +42,120 @@ header {
   left: 0;
   right: 0;
   width: 100%;
-  border: 1px solid blue;
+  // border: 1px solid blue;
   padding: 0.25rem;
 }
 
 .main-container {
-  border: 1px solid green;
-  padding: 1rem;
-  padding-bottom: calc(var(--footer-height) - 2vh);
+  // border: 1px solid green;
+  background: rgb(50,50,50);
+  background: radial-gradient(circle,
+   rgba(50,50,50,1) 0%,
+   rgba(46,46,46,1) 39%,
+   rgba(29,28,28,1) 100%);
+  padding: 1.5rem 1rem;
+  padding-bottom: calc(var(--footer-height) - 2vh);   // för att "+-knappen" inte ska dölja content
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 30vh;
+  min-height: 40vh;
   overflow-y: auto;
 }
 
-.todo-container {
+.input-section {
+  display: none;
+}
+
+.input-active {
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: var(--rounded-corners);
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: calc(var(--footer-height) * 2);
+  padding: 2rem 1rem;
+  display: grid;
+  row-gap: 3rem;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: auto;
+  grid-template-areas:
+    "input-label input-label input-label input-label"
+    "input input input input"
+    "date . . category "
+    "add-item . . add-item-close";
+
+  button.close-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background-color: fff;
+    cursor: pointer;
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    height: 35px;
+    width: 35px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    border-radius: 50%;
+  }
+
+  #input-label {
+    grid-area: input-label;
+    justify-self: center;
+    font-size: 1.5rem;
+  }
+
+  .todo-input {
+    border-radius: var(--rounded-corners);
+    grid-area: input;
+    height: 3rem;
+    justify-self: center;
+    padding: 1rem;
+    width: 80%;
+  }
+
+  #date-label {
+    grid-area: date;
+  
+    .todo-datepicker {
+      height: 2rem;
+      border-radius: var(--rounded-corners);
+    }
+  }
+
+  #category-label {
+    @include flex-center-col;
+
+    grid-area: category;
+    width: max-content;
+
+    select {
+      height: 2rem;
+      border-radius: var(--rounded-corners);
+    }
+  }
+
+  .add-todo-item {
+    grid-area: add-item;
+  }
+
+  .add-todo-close {
+    grid-area: add-item-close;
+    width: max-content;
+  }
+}
+
+
+
+
+
+
+
+
+
+.todo-section {
   @include flex-center-col;
 
   margin-bottom: 1rem;
@@ -73,19 +169,20 @@ header {
 .todo {
   display: grid;
   grid-template-columns: min-content 1fr min-content;
-  width: 100%;
+  width: 95%;
   column-gap: 1rem;
   padding: 0.5rem 1rem;
   border: 1px solid #fff;
-  border-radius: 10px;
+  border-radius: var(--rounded-corners);
   margin-bottom: 0.5rem;
+  background-color: rgba(26, 26, 26, 0.3);
 }
 
 .left-grid {
   @include flex-center-col;
 }
 
-.done-container {
+.done-section {
   h2 {
     margin-bottom: 0.5rem;
   }
@@ -93,7 +190,7 @@ header {
 
 footer {
   position: fixed;
-  border: 1px solid pink;
+  // border: 1px solid pink;
   bottom: 0;
   left: 0;
   right: 0;
@@ -104,6 +201,8 @@ footer {
     position: absolute;
     bottom: 2vh;
     font-size: 3rem;
+    cursor: pointer;
+    text-shadow: -1px 2px 2px rgba(114, 114, 114, 0.9);
   }
 
   .sorting-icon {
@@ -115,19 +214,27 @@ footer {
   }
 }
 
-.add-todo {
+.open-add-todo-btn {
   position: relative;
   left: 50%;
   top: -2.5rem;
   transform: translateX(-50%);
-  height: 5rem;
-  width: 5rem;
-  font-size: 4rem;
+  height: 4rem;
+  width: 4rem;
+  font-size: 3rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
   color: white;
-  background-color: rgb(248, 162, 2);
+  background-color: rgb(56, 160, 25);
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    text-shadow: -1px 2px 2px rgba(114, 114, 114, 0.9);
+    box-shadow: 2px 2px 11px 2px rgba(114, 114, 114, 0.4);
+  }
 }
+
