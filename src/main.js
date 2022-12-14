@@ -1,56 +1,52 @@
 import { doc } from 'prettier';
 import './style/style.scss';
+import Todo from './Todo';
+import { addExampleTodos } from './utils';
 
-// Variables
+/**************** Variables ****************/
+
+let todoArr = [];
+let doneArr = [];
 
 // Elements
 
 const todoSection = document.querySelector('.todo-section');
+const openAddBtn = document.querySelector('.open-add-todo-btn');
 const inputContainer = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
-const addTodoBtn = document.querySelector('.open-add-todo-btn');
+const addTodoBtn = document.querySelector('.add-todo-item');
+
+const todoInput = document.querySelector('#todo-input');
+const dateInput = document.querySelector('#todo-date');
+const categoryInput = document.querySelector('#todo-category');
+
 const sortingBtn = document.querySelector('.sorting-icon');
 const helpBtn = document.querySelector('.help-icon');
 
-// Functions
+/**************** Functions ****************/
 
 function setEventListeners() {
-  addTodoBtn.addEventListener('click', toggleAddTodo);
-  closeInputBtn.addEventListener('click', toggleAddTodo)
+  openAddBtn.addEventListener('click', toggleAddTodo);
+  closeInputBtn.addEventListener('click', toggleAddTodo);
   sortingBtn.addEventListener('click', openSortingMenu);
   helpBtn.addEventListener('click', openHelp);
+  addTodoBtn.addEventListener('click', createTodo);
 }
-
 function toggleAddTodo() {
   inputContainer.classList.toggle('input-active');
 }
 
-/**
- * testar layout med 8 exempel-todos
- */
-function addExampleTodos() {
-  todoSection.innerHTML = `
-  <h2>
-    To do:
-  </h2>
-  `;
+function createTodo() {
+  let category = categoryInput.options[categoryInput.selectedIndex].text;
+  let todo = new Todo(todoInput.value, category, dateInput.value);
+  todoArr.push(todo);
+  console.log(todoArr);
+  console.log('hej');
+  // TODO: create render function
+}
 
-  for (let i = 0; i < 8; i++) {
-    todoSection.innerHTML += `
-    <div class="todo">
-    <div class="left-grid">
-      <input type="checkbox">
-    </div>
-    <div class="middle-grid">
-      <p>Gör en todo-app</p>
-      <div class="date-section">Datum</div>
-    </div>
-    <div class="right-grid">
-      <div class="icon1">1</div>
-      <div class="icon2">2</div>
-    </div>
-    `;
-  }
+function clearForm() {
+
 }
 
 function openSortingMenu() {
@@ -61,6 +57,12 @@ function openHelp() {
   alert('I need help asap');
 }
 
-// Program Flow
+/**************** Program Flow ****************/
+
 setEventListeners();
-addExampleTodos();
+// addExampleTodos(todoSection);  // TODO: change this to add objects to array instead
+
+const rightNow = new Date();
+const todo = new Todo('Handla', 'Activity', rightNow);
+
+console.log(todo);
