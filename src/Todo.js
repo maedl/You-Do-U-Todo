@@ -5,7 +5,7 @@ class Todo {
     this.title = title;
     this.category = category;
     this.dueDateObject = dueDateObject;
-    this.completed = false;
+    this.completed = completed;
   }
 }
 export default Todo;
