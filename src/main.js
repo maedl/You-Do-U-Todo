@@ -1,16 +1,15 @@
 import { doc } from 'prettier';
 import './style/style.scss';
 import Todo from './Todo';
-import { addExampleTodos } from './utils';
 
 /**************** Variables ****************/
 
 let todoArr = [];
-let doneArr = [];
 
 // Elements
 
-const todoSection = document.querySelector('.todo-section');
+const todoContainer = document.querySelector('.todo-container');
+const doneContainer = document.querySelector('.done-container');
 const openAddBtn = document.querySelector('.open-add-todo-btn');
 const inputContainer = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
@@ -38,31 +37,68 @@ function toggleAddTodo() {
 
 function createTodo() {
   let category = categoryInput.options[categoryInput.selectedIndex].text;
-  let todo = new Todo(todoInput.value, category, dateInput.value);
+  let todo = new Todo(todoInput.value, category, dateInput.value, false);
   todoArr.push(todo);
-  console.log(todoArr);
-  console.log('hej');
-  // TODO: create render function
+  clearForm();
+  renderTodos();
+}
+
+function renderTodos() {
+  let container = '';
+  todoContainer.innerHTML = '';
+  doneContainer.innerHTML = '';
+  todoArr.forEach(todo => {
+    if (todo.completed === false) {
+      container = todoContainer;
+    } else {
+      container = doneContainer;
+    }
+
+    container.innerHTML += `
+      <div class="todo">
+      <div class="left-grid">
+        <input type="checkbox">
+      </div>
+      <div class="middle-grid">
+        <p>${todo.title}</p>
+        <div class="date-section">Datum</div>
+      </div>
+      <div class="right-grid">
+        <div class="icon1">1</div>
+        <div class="icon2">2</div>
+      </div>
+      `;
+  });
+
+  document.querySelectorAll('.done-container .todo .left-grid input').forEach(element => {
+    element.setAttribute('checked', '');
+  });
 }
 
 function clearForm() {
-
+  document.querySelector('.input-section').reset();
 }
 
 function openSortingMenu() {
-  alert('sortera här');
+  addExampleTodos();
+  console.log(todoArr);
 }
 
 function openHelp() {
   alert('I need help asap');
 }
 
+function addExampleTodos(array) {
+  for (let i = 0; i < 4; i++) {
+    let todo = new Todo('todoInput.value', 'category', 'dateInput.value', false);
+    todoArr.push(todo);
+  }
+  for (let i = 0; i < 4; i++) {
+    let todo = new Todo('todoInput.value', 'category', 'dateInput.value', true);
+    todoArr.push(todo);
+  }
+  renderTodos();
+}
 /**************** Program Flow ****************/
 
 setEventListeners();
-// addExampleTodos(todoSection);  // TODO: change this to add objects to array instead
-
-const rightNow = new Date();
-const todo = new Todo('Handla', 'Activity', rightNow);
-
-console.log(todo);

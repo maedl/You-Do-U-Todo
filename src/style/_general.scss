@@ -1,13 +1,14 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: rem(16px);
-  background-color: var(--background-color);
+  background: rgb(50, 50, 50);
+  background: radial-gradient(circle, rgba(50, 50, 50, 1) 0%, rgba(46, 46, 46, 1) 39%, rgba(29, 28, 28, 1) 100%);
   color: white;
 
   --header-height: 14vh;
   --footer-height: 10vh; // body padding-bottom samma värde i mobile
   --handwritten-font: 'Caveat', cursive;
-  --primary-color: rgb(145, 70, 0);
+  --primary-color: rgb(145, 41, 0);
   --background-color: rgb(29 28 28); // för root, footer & info-bar..
   --rounded-corners: 10px;
 }

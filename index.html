@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!--TODO: kolla head-->
     <meta charset="UTF-8" />
     <link rel="icon" type="image/ico" href="/favicon.ico" />
     <link
@@ -37,8 +38,9 @@
       <div class="info-bar">Info-bar</div>
 
       <div class="main-container">
-        <form class="input-section">
-          <button class="close-input" aria-label="close input box">X</button>
+        <!--TODO: onSubmit in i js?-->
+        <form class="input-section" onSubmit="return false;">
+          <button type="button" class="close-input" aria-label="close input box">X</button>
           <label for="todo-input" id="input-label"> Add to do: </label>
           <input type="text" id="todo-input" class="todo-input" placeholder="Type something.." />
           <label for="todo-date" id="date-label">
@@ -54,17 +56,21 @@
             </select>
           </label>
           <button type="button" class="add-todo-item">Add</button>
-          <input type="reset" value="Clear all fields" class="reset-btn">
+          <input type="reset" value="Clear all fields" class="reset-btn" />
         </form>
 
         <section class="todo-section">
           <h2>To do:</h2>
-          <p class="no-items">Nothing to do... yet!</p>
+          <ul class="todo-container">
+            <li class="no-items">Nothing to do... yet!</li>
+          </ul>
         </section>
 
         <section class="done-section">
           <h2>Done:</h2>
-          <p class="no-items">No finished tasks</p>
+          <ul class="done-container">
+            <li class="no-items">No finished tasks</li>
+          </ul>
         </section>
       </div>
     </main>
