@@ -38,7 +38,7 @@
         <form class="input-section" onSubmit="return false;">
           <button type="button" class="close-input" aria-label="close input box">X</button>
           <label for="todo-input" id="input-label"> Add to do: </label>
-          <input type="text" id="todo-input" class="todo-input" placeholder="Type something.." />
+          <input type="text" id="todo-input" class="todo-input" placeholder="Type something to do.." />
           <label for="todo-date" id="date-label">
             Choose due date
             <input type="date" id="todo-date" class="todo-datepicker" />
@@ -51,8 +51,8 @@
               <option value="cat3">Cat 3</option>
             </select>
           </label>
-          <button type="button" class="add-todo-item">Add</button>
-          <input type="reset" value="Clear all fields" class="reset-btn" />
+          <button type="button" class="add-todo-btn">Add</button>
+          <button type="button"  class="reset-btn">Clear all fields</button>
         </form>
 
         <section class="todo-section">
@@ -64,15 +64,13 @@
 
         <section class="done-section">
           <h2>Done:</h2>
-          <ul class="done-container">
-            <li class="no-items">No finished tasks</li>
-          </ul>
+          <ul class="done-container"></ul>
         </section>
       </div>
     </main>
 
     <footer>
-      <button class="open-add-todo-btn" aria-label="open add to do input field">+</button>
+      <button class="open-todo-input-btn" aria-label="open add to do input field">+</button>
       <span class="material-symbols-outlined footer-icon sorting-icon"> sort </span>
       <span class="material-symbols-outlined footer-icon settings-icon"> settings </span>
     </footer>

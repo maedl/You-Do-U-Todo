@@ -10,10 +10,10 @@ let todoArr = [];
 
 const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
-const openAddBtn = document.querySelector('.open-add-todo-btn');
+const openAddBtn = document.querySelector('.open-todo-input-btn');
 const inputContainer = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
-const addTodoBtn = document.querySelector('.add-todo-item');
+const addTodoBtn = document.querySelector('.add-todo-btn');
 
 const todoInput = document.querySelector('#todo-input');
 const dateInput = document.querySelector('#todo-date');
@@ -30,22 +30,36 @@ function setEventListeners() {
   sortingBtn.addEventListener('click', openSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
   addTodoBtn.addEventListener('click', createTodo);
-  
 }
 function toggleAddTodo() {
   inputContainer.classList.toggle('input-active');
+  clearForm();
 }
 
 function createTodo() {
+  const title = todoInput.value;
   const category = categoryInput.options[categoryInput.selectedIndex].text;
-  const todo = new Todo(todoInput.value, category, dateInput.value, false);
-
-  if (todo.title.length < 1) {
+  let dueDate = dateInput.value;
+  let indexExists = false;
+  todoArr.forEach(todo => {
+    if (title === todo.title) {
+      indexExists = true;
+    }
+  })
+ 
+  if (title.length < 1) {
     todoInput.setAttribute('placeholder', 'Please add a title');
+    console.log('här');
+  }
+  else if (indexExists) {
+    clearForm();
+    todoInput.setAttribute('placeholder', 'Todo already exists!');
   }
   else {
+    const todo = new Todo(title, category, dueDate, false);
     todoArr.push(todo);
     clearForm();
+    todoInput.setAttribute('placeholder', 'Type something to do..');
     renderTodos();
   }
 }
@@ -67,7 +81,7 @@ function renderTodos() {
         <input type="checkbox" data-id="${todo.title}">
       </div>
       <div class="middle-grid">
-        <p>${todo.title}</p>
+        <p class="todo-title">${todo.title}</p>
         <div class="date-section">Due: ${todo.dueDate}</div>
       </div>
       <div class="right-grid">
@@ -82,6 +96,7 @@ function renderTodos() {
   });
 
   handleCheckboxes();
+  // renderInfoBar();
 }
 
 function handleCheckboxes(e) {

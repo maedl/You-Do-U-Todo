@@ -58,27 +58,31 @@ header {
 }
 
 .input-section {
-  display: none;
+  display: none;  // toggla en util-klass ist? ( toggleAddTodo() )
 }
 
 .input-active {
-  background-color: rgba(0, 0, 0, 0.9);
+  max-width: 100vw;
+  background-color: var(--background-color);
   position: fixed;
   left: 0;
   right: 0;
   top: 0;
-  padding: 2rem 1rem;
+  padding: 5rem 2rem;
   display: grid;
-  row-gap: 3rem;
+  row-gap: 2rem;
   grid-template-columns: 1fr 1fr 1fr 1fr;
   grid-template-rows: auto;
   grid-template-areas:
     'input-label input-label input-label input-label'
-    'input input input input'
-    'date . . category '
-    'add-item . . reset-btn';
+    '. input input .'
+    'date date category category'
+    '. add-item reset-btn . ';
 
   button.close-input {
+    background-color: var(--red-color);
+    box-shadow: var(--box-shadow);
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,8 +90,8 @@ header {
     background-color: fff;
     cursor: pointer;
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 25px;
+    right: 25px;
     height: 35px;
     width: 35px;
     font-size: 1.25rem;
@@ -107,16 +111,19 @@ header {
     height: 3rem;
     justify-self: center;
     padding: 1rem;
-    width: 80%;
+    width: 100%;
+  }
+
+  input:not([type="text"]),
+  select {
+    height: 2rem;
+    border-radius: var(--rounded-corners);
+    border: none;
   }
 
   #date-label {
     grid-area: date;
 
-    .todo-datepicker {
-      height: 2rem;
-      border-radius: var(--rounded-corners);
-    }
   }
 
   #category-label {
@@ -124,18 +131,28 @@ header {
 
     grid-area: category;
     width: max-content;
-
-    select {
-      height: 2rem;
-      border-radius: var(--rounded-corners);
-    }
   }
 
-  .add-todo-item {
+  .add-todo-btn, 
+  .reset-btn {
+    border-radius: var(--rounded-corners);
+    box-shadow: var(--box-shadow);
+    color: white;
+    border: none;
+    margin-top: 2rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    height: 3rem;
+    width: 30vw;
+  }
+
+  .add-todo-btn {
+    background-color: var(--green-color);
     grid-area: add-item;
   }
 
   .reset-btn {
+    background-color: var(--red-color);
     grid-area: reset-btn;
   }
 }
@@ -162,12 +179,12 @@ ul {
 
   button {
     @include flex-center-col;
-
+    
     cursor: pointer;
     border: none;
     height: 35px;
     width: 35px;;
-    background-color: rgba(26, 26, 26, 0.3);
+    background: transparent;
     color: white;
 
     span {
@@ -176,7 +193,7 @@ ul {
   }
 
   .todo {
-    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.6);
+    box-shadow: var(--box-shadow);
     display: grid;
     grid-template-columns: min-content 1fr min-content;
     width: 100%;
@@ -199,13 +216,18 @@ ul {
       width: 1.5rem;
     }
   }
+  
+  .middle-grid {
+    .todo-title {
+      font-size: 1.25rem;
 
-  .done-section {
-    h2 {
-      margin-bottom: 0.5rem;
+      &::first-letter {
+        text-transform: capitalize;
+      }
     }
   }
 }
+
 
 footer {
   position: fixed;
@@ -233,7 +255,7 @@ footer {
   }
 }
 
-.open-add-todo-btn {
+.open-todo-input-btn {
   position: relative;
   left: 50%;
   top: -2.5rem;
@@ -247,7 +269,7 @@ footer {
   justify-content: center;
   border: none;
   color: white;
-  background-color: rgb(56, 160, 25);
+  background-color: var(--green-color);
   cursor: pointer;
   transition: all 0.3s ease-in-out;
 
