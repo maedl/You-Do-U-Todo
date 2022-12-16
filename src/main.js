@@ -20,7 +20,7 @@ const dateInput = document.querySelector('#todo-date');
 const categoryInput = document.querySelector('#todo-category');
 
 const sortingBtn = document.querySelector('.sorting-icon');
-const helpBtn = document.querySelector('.help-icon');
+const settingsBtn = document.querySelector('.settings-icon');
 
 /**************** Functions ****************/
 
@@ -28,19 +28,26 @@ function setEventListeners() {
   openAddBtn.addEventListener('click', toggleAddTodo);
   closeInputBtn.addEventListener('click', toggleAddTodo);
   sortingBtn.addEventListener('click', openSortingMenu);
-  helpBtn.addEventListener('click', openHelp);
+  settingsBtn.addEventListener('click', openSettings);
   addTodoBtn.addEventListener('click', createTodo);
+  
 }
 function toggleAddTodo() {
   inputContainer.classList.toggle('input-active');
 }
 
 function createTodo() {
-  let category = categoryInput.options[categoryInput.selectedIndex].text;
-  let todo = new Todo(todoInput.value, category, dateInput.value, false);
-  todoArr.push(todo);
-  clearForm();
-  renderTodos();
+  const category = categoryInput.options[categoryInput.selectedIndex].text;
+  const todo = new Todo(todoInput.value, category, dateInput.value, false);
+
+  if (todo.title.length < 1) {
+    todoInput.setAttribute('placeholder', 'Please add a title');
+  }
+  else {
+    todoArr.push(todo);
+    clearForm();
+    renderTodos();
+  }
 }
 
 function renderTodos() {
@@ -55,24 +62,50 @@ function renderTodos() {
     }
 
     container.innerHTML += `
-      <div class="todo">
+      <li class="todo">
       <div class="left-grid">
-        <input type="checkbox">
+        <input type="checkbox" data-id="${todo.title}">
       </div>
       <div class="middle-grid">
         <p>${todo.title}</p>
-        <div class="date-section">Datum</div>
+        <div class="date-section">Due: ${todo.dueDate}</div>
       </div>
       <div class="right-grid">
         <div class="icon1">1</div>
-        <div class="icon2">2</div>
-      </div>
+        <button type="button" class="delete-icon"> 
+          <span class="material-symbols-outlined">
+          delete
+          </span>
+        </button
+      </li>
       `;
   });
 
-  document.querySelectorAll('.done-container .todo .left-grid input').forEach(element => {
+  handleCheckboxes();
+}
+
+function handleCheckboxes(e) {
+  const todoCheckboxes = document.querySelectorAll('input[type=checkbox]');
+  const doneTodos = document.querySelectorAll('.done-container .todo .left-grid input');
+
+  todoCheckboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', manageCompleteStatus);
+  });
+
+  doneTodos.forEach(element => {
     element.setAttribute('checked', '');
   });
+}
+
+function manageCompleteStatus(e) {
+  const clickedTitle = e.target.dataset.id;
+
+  for (let i = 0; i < todoArr.length; i++) {
+    if (clickedTitle === todoArr[i].title) {
+      todoArr[i].toggleComplete();
+    }
+  }
+  renderTodos();
 }
 
 function clearForm() {
@@ -84,21 +117,10 @@ function openSortingMenu() {
   console.log(todoArr);
 }
 
-function openHelp() {
-  alert('I need help asap');
+function openSettings() {
+  alert('I am a settings menu');
 }
 
-function addExampleTodos(array) {
-  for (let i = 0; i < 4; i++) {
-    let todo = new Todo('todoInput.value', 'category', 'dateInput.value', false);
-    todoArr.push(todo);
-  }
-  for (let i = 0; i < 4; i++) {
-    let todo = new Todo('todoInput.value', 'category', 'dateInput.value', true);
-    todoArr.push(todo);
-  }
-  renderTodos();
-}
 /**************** Program Flow ****************/
 
 setEventListeners();
