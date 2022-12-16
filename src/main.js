@@ -10,10 +10,10 @@ let todoArr = [];
 
 const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
-const openAddBtn = document.querySelector('.open-add-todo-btn');
+const openAddBtn = document.querySelector('.open-todo-input-btn');
 const inputContainer = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
-const addTodoBtn = document.querySelector('.add-todo-item');
+const addTodoBtn = document.querySelector('.add-todo-btn');
 
 const todoInput = document.querySelector('#todo-input');
 const dateInput = document.querySelector('#todo-date');
@@ -59,6 +59,7 @@ function createTodo() {
     const todo = new Todo(title, category, dueDate, false);
     todoArr.push(todo);
     clearForm();
+    todoInput.setAttribute('placeholder', 'Type something to do..');
     renderTodos();
   }
 }
@@ -80,7 +81,7 @@ function renderTodos() {
         <input type="checkbox" data-id="${todo.title}">
       </div>
       <div class="middle-grid">
-        <p>${todo.title}</p>
+        <p class="todo-title">${todo.title}</p>
         <div class="date-section">Due: ${todo.dueDate}</div>
       </div>
       <div class="right-grid">
