@@ -30,20 +30,33 @@ function setEventListeners() {
   sortingBtn.addEventListener('click', openSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
   addTodoBtn.addEventListener('click', createTodo);
-  
 }
 function toggleAddTodo() {
   inputContainer.classList.toggle('input-active');
+  clearForm();
 }
 
 function createTodo() {
+  const title = todoInput.value;
   const category = categoryInput.options[categoryInput.selectedIndex].text;
-  const todo = new Todo(todoInput.value, category, dateInput.value, false);
-
-  if (todo.title.length < 1) {
+  let dueDate = dateInput.value;
+  let indexExists = false;
+  todoArr.forEach(todo => {
+    if (title === todo.title) {
+      indexExists = true;
+    }
+  })
+ 
+  if (title.length < 1) {
     todoInput.setAttribute('placeholder', 'Please add a title');
+    console.log('här');
+  }
+  else if (indexExists) {
+    clearForm();
+    todoInput.setAttribute('placeholder', 'Todo already exists!');
   }
   else {
+    const todo = new Todo(title, category, dueDate, false);
     todoArr.push(todo);
     clearForm();
     renderTodos();
@@ -82,6 +95,7 @@ function renderTodos() {
   });
 
   handleCheckboxes();
+  // renderInfoBar();
 }
 
 function handleCheckboxes(e) {
