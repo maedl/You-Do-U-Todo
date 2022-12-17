@@ -10,6 +10,7 @@ let todoArr = [];
 
 const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
+const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
 const openAddBtn = document.querySelector('.open-todo-input-btn');
 const inputContainer = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
@@ -26,6 +27,7 @@ const settingsBtn = document.querySelector('.settings-icon');
 
 function setEventListeners() {
   openAddBtn.addEventListener('click', toggleAddTodo);
+  delAllCompleteBtn.addEventListener('click', deleteAllCompleted)
   closeInputBtn.addEventListener('click', toggleAddTodo);
   sortingBtn.addEventListener('click', openSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
@@ -49,7 +51,6 @@ function createTodo() {
  
   if (title.length < 1) {
     todoInput.setAttribute('placeholder', 'Please add a title');
-    console.log('här');
   }
   else if (indexExists) {
     clearForm();
@@ -66,13 +67,17 @@ function createTodo() {
 
 function renderTodos() {
   let container = '';
+  let todoCounter = 0;
+  let doneCounter = 0;
   todoContainer.innerHTML = '';
   doneContainer.innerHTML = '';
   todoArr.forEach(todo => {
     if (todo.completed === false) {
       container = todoContainer;
+      todoCounter++;
     } else {
       container = doneContainer;
+      doneCounter++;
     }
 
     container.innerHTML += `
@@ -93,21 +98,36 @@ function renderTodos() {
         </button
       </li>
       `;
-
   });
 
   document.querySelectorAll('.delete-icon').forEach(icon => {
     icon.addEventListener('click', deleteTodo);
   });
   handleCheckboxes();
-  console.log(todoArr);
-  // renderInfoBar();
+  renderInfoBar(todoCounter, doneCounter);
 }
 
 function deleteTodo(e) {
   const clickedBtnTitle = e.currentTarget.dataset.id;
   
   todoArr.splice(todoArr.indexOf(clickedBtnTitle), 1);
+  renderTodos();
+}
+
+function deleteAllCompleted(e) {
+
+  let titlesToDelete = [];
+  let indexToDel = '';
+
+  for (let i = 0; i < todoArr.length; i++) {
+    if (todoArr[i].completed === true) {
+      titlesToDelete.push(todoArr[i].title);
+    }
+  }
+  titlesToDelete.forEach(title => {
+    indexToDel = todoArr.indexOf(indexToDel);
+    todoArr.splice(indexToDel, 1);
+  })
   renderTodos();
 }
 
@@ -135,17 +155,22 @@ function manageCompleteStatus(e) {
   renderTodos();
 }
 
+// TODO:
+function renderInfoBar(todoCounter, doneCounter) { 
+  let todo = todoCounter;
+  let done = doneCounter;
+}
+
 function clearForm() {
   document.querySelector('.input-section').reset();
 }
 
 function openSortingMenu() {
-  addExampleTodos();
-  console.log(todoArr);
+  console.log('sortera här..');
 }
 
 function openSettings() {
-  alert('I am a settings menu');
+  console.log('meny eller about..');
 }
 
 /**************** Program Flow ****************/
