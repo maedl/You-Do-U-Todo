@@ -169,9 +169,29 @@ function openSortingMenu() {
   console.log('sortera här..');
 }
 
+/**
+ * meny eller about eller nåt..  men just nu skriver den bara ut exempel-todos!
+ */
 function openSettings() {
-  console.log('meny eller about..');
+  // obs ej samma funktionalitet som riktiga todos..
+  // bara för test av sortering och design
+
+  let title = 'A';
+  let category = 'Activity';
+  let dateLol = 24;
+  let dueDate = '2022-12-' + dateLol;
+
+  for (let i = 0; i < 5; i++) {
+    const todo = new Todo(title, category, dueDate, false);
+    todoArr.push(todo);
+    title += ' A'
+    category === 'Activity' ? category = 'Shopping Item' : category = 'Activity';
+    dateLol++;
+  }
+  console.log(todoArr);
+  renderTodos();
 }
+
 
 /**************** Program Flow ****************/
 
