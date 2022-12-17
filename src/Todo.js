@@ -8,12 +8,7 @@ class Todo {
     this.completed = completed;
   }
   toggleComplete() {
-    if (this.completed === false) {
-      this.completed = true;
-    }
-    else {
-      this.completed = false;
-    }
+    this.completed === false ? this.completed = true : this.completed = false;
   }
 }
 export default Todo;
