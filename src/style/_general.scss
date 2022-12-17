@@ -12,10 +12,7 @@
   --green-color: rgb(56, 160, 25);
   --red-color: rgb(184, 14, 8);
   --background-color: rgb(29 28 28); // för root, footer & info-bar..
-  --bg-gradient: radial-gradient(circle,
-                             rgba(50, 50, 50, 1) 0%,
-                             rgba(46, 46, 46, 1) 39%,
-                             rgba(29, 28, 28, 1) 100%);
+  --bg-gradient: radial-gradient(circle, rgba(50, 50, 50, 1) 0%, rgba(46, 46, 46, 1) 39%, rgba(29, 28, 28, 1) 100%);
   --rounded-corners: 10px;
   --box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.9);
 }

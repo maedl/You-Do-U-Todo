@@ -58,7 +58,7 @@ header {
 }
 
 .input-section {
-  display: none;  // toggla en util-klass ist? ( toggleAddTodo() )
+  display: none; // toggla en util-klass ist? ( toggleAddTodo() )
 }
 
 .input-active {
@@ -113,7 +113,7 @@ header {
     width: 100%;
   }
 
-  input:not([type="text"]),
+  input:not([type='text']),
   select {
     height: 2rem;
     border-radius: var(--rounded-corners);
@@ -133,7 +133,7 @@ header {
     width: max-content;
   }
 
-  .add-todo-btn, 
+  .add-todo-btn,
   .reset-btn {
     border-radius: var(--rounded-corners);
     box-shadow: var(--box-shadow);
@@ -199,8 +199,7 @@ ul {
   @include flex-center-col;
 
   .todo {
-    box-shadow: var(--box-shadow),
-                0px 0px 2px 0px rgba(255,255,255,1);
+    box-shadow: var(--box-shadow), 0px 0px 2px 0px rgba(255, 255, 255, 1);
     display: grid;
     grid-template-columns: min-content 1fr min-content;
     width: 100%;
@@ -211,23 +210,24 @@ ul {
     background-color: rgba(26, 26, 26, 0.5);
   }
 
-  .left-grid {  // todo checkbox container
+  .left-grid {
+    // todo checkbox container
     @include flex-center-col;
-    
+
     width: 2.5rem;
 
-    input[type=checkbox] {
+    input[type='checkbox'] {
       border-radius: 50%;
       height: 1.5rem;
       width: 1.5rem;
     }
   }
-  
-  .middle-grid {  // todo title and due date container
+
+  .middle-grid {
+    // todo title and due date container
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
 
     .todo-title {
       font-size: 1.25rem;
@@ -240,7 +240,7 @@ ul {
 
     .date-section {
       font-size: 0.9rem;
-      
+
       span {
         margin-left: 0.25rem;
       }
@@ -255,7 +255,7 @@ ul {
 
     .category-icon-container {
       padding: 0.25rem;
-      
+
       span {
         font-size: 1.5rem;
       }
@@ -263,21 +263,20 @@ ul {
 
     .delete-btn {
       @include flex-center-col;
-      
+
       cursor: pointer;
       border: none;
       height: 35px;
       width: 35px;
       background: transparent;
       color: white;
-  
+
       span {
         font-size: 1.5rem;
       }
     }
   }
 }
-
 
 footer {
   position: fixed;

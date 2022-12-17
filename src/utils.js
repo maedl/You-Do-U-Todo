@@ -3,14 +3,13 @@ export function setCategoryIcon(choosedCategory) {
   switch (choosedCategory) {
     case 'activity':
       categoryString = 'sprint';
-    break;
+      break;
     case 'shop-item':
-      categoryString = 'shopping_bag'
-    break;
+      categoryString = 'shopping_bag';
+      break;
     case 'call':
-      categoryString = 'call'
-    break;
+      categoryString = 'call';
+      break;
   }
-    return categoryString;
-  }
-
+  return categoryString;
+}
