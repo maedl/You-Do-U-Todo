@@ -101,7 +101,6 @@ header {
 
   #input-label {
     grid-area: input-label;
-    justify-self: center;
     font-size: 1.5rem;
   }
 
@@ -122,8 +121,9 @@ header {
   }
 
   #date-label {
-    grid-area: date;
+    @include flex-center-col;
 
+    grid-area: date;
   }
 
   #category-label {
@@ -165,6 +165,27 @@ header {
     align-self: flex-start;
     margin-bottom: 0.5rem;
   }
+
+  button {
+    cursor: pointer;
+    border-radius: var(--rounded-corners);
+    box-shadow: var(--box-shadow);
+    background-color: var(--red-color);
+    padding: 0.5rem 1.5rem;
+
+    color: white;
+    border: none;
+  }
+}
+
+.done-section {
+  margin-top: 1rem;
+
+  button.del-all-complete-btn {
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    margin-left: 1rem;
+  }
 }
 
 ul {
@@ -177,13 +198,13 @@ ul {
 .done-container {
   @include flex-center-col;
 
-  button {
+  button.delete-icon {
     @include flex-center-col;
     
     cursor: pointer;
     border: none;
     height: 35px;
-    width: 35px;;
+    width: 35px;
     background: transparent;
     color: white;
 
@@ -198,7 +219,7 @@ ul {
     grid-template-columns: min-content 1fr min-content;
     width: 100%;
     column-gap: 1rem;
-    padding: 0.5rem 1rem;
+    padding: 1rem;
     border: 1px solid #fff;
     border-radius: var(--rounded-corners);
     margin-bottom: 0.75rem;
