@@ -187,7 +187,7 @@ function openSettings() {
   // bara för test av sortering och design
 
   let title = 'A';
-  let category = 'Activity';
+  let category = 'activity';
   let dateLol = 24;
   let dueDate = '2022-12-' + dateLol;
 
@@ -195,7 +195,7 @@ function openSettings() {
     const todo = new Todo(title, category, dueDate, false);
     todoArr.push(todo);
     title += ' A'
-    category === 'activity' ? category = 'shopping-item' : category = 'activity';
+    category === 'activity' ? category = 'shop-item' : category = 'activity';
     dateLol++;
     dueDate = '2022-12-' + dateLol;
   }
