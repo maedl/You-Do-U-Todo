@@ -10,7 +10,7 @@ let todoArr = [];
 // Elements
 
 const infoBar = document.querySelector('.info-bar');
-const todoAmountSpan = document.querySelector('.info-bar span')
+const todoAmountSpan = document.querySelector('.info-bar span');
 const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
 const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
@@ -30,7 +30,7 @@ const settingsBtn = document.querySelector('.settings-icon');
 
 function setEventListeners() {
   openAddBtn.addEventListener('click', toggleAddTodo);
-  delAllCompleteBtn.addEventListener('click', deleteAllCompleted)
+  delAllCompleteBtn.addEventListener('click', deleteAllCompleted);
   closeInputBtn.addEventListener('click', toggleAddTodo);
   sortingBtn.addEventListener('click', openSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
@@ -50,16 +50,14 @@ function createTodo() {
     if (title === todo.title) {
       alreadyExists = true;
     }
-  })
- 
+  });
+
   if (title.length < 1) {
     todoInput.setAttribute('placeholder', 'Please add a title');
-  }
-  else if (alreadyExists) {
+  } else if (alreadyExists) {
     clearForm();
     todoInput.setAttribute('placeholder', 'Todo already exists!');
-  }
-  else {
+  } else {
     const todo = new Todo(title, category, dueDate, false);
     todoArr.push(todo);
     clearForm();
@@ -121,13 +119,12 @@ function renderTodos() {
 
 function deleteTodo(e) {
   const clickedBtnTitle = e.currentTarget.dataset.id;
-  
+
   todoArr.splice(todoArr.indexOf(clickedBtnTitle), 1);
   renderTodos();
 }
 
 function deleteAllCompleted(e) {
-
   let titlesToDelete = [];
   let indexToDel = '';
 
@@ -139,7 +136,7 @@ function deleteAllCompleted(e) {
   titlesToDelete.forEach(title => {
     indexToDel = todoArr.indexOf(indexToDel);
     todoArr.splice(indexToDel, 1);
-  })
+  });
   renderTodos();
 }
 
@@ -168,7 +165,7 @@ function manageCompleteStatus(e) {
 }
 
 // TODO:
-function renderInfoBar(todoCounter, doneCounter) { 
+function renderInfoBar(todoCounter, doneCounter) {
   let todo = todoCounter;
   let done = doneCounter;
   todoAmountSpan.innerText = '';
@@ -198,15 +195,14 @@ function openSettings() {
   for (let i = 0; i < 5; i++) {
     const todo = new Todo(title, category, dueDate, false);
     todoArr.push(todo);
-    title += ' A'
-    category === 'activity' ? category = 'shop-item' : category = 'activity';
+    title += ' A';
+    category === 'activity' ? (category = 'shop-item') : (category = 'activity');
     dateLol++;
     dueDate = '2022-12-' + dateLol;
   }
   console.log(todoArr);
   renderTodos();
 }
-
 
 /**************** Program Flow ****************/
 
