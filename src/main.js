@@ -1,6 +1,7 @@
 import { doc } from 'prettier';
 import './style/style.scss';
 import Todo from './Todo';
+import { setCategoryIcon } from './utils';
 
 /**************** Variables ****************/
 
@@ -23,8 +24,6 @@ const categoryInput = document.querySelector('#todo-category');
 const sortingBtn = document.querySelector('.sorting-icon');
 const settingsBtn = document.querySelector('.settings-icon');
 
-let categoryIconName = 'sprint';
-
 /**************** Functions ****************/
 
 function setEventListeners() {
@@ -42,19 +41,19 @@ function toggleAddTodo() {
 
 function createTodo() {
   const title = todoInput.value;
-  const category = categoryInput.options[categoryInput.selectedIndex].text;
+  const category = categoryInput.options[categoryInput.selectedIndex].value;
   let dueDate = dateInput.value;
-  let indexExists = false;
+  let alreadyExists = false;
   todoArr.forEach(todo => {
     if (title === todo.title) {
-      indexExists = true;
+      alreadyExists = true;
     }
   })
  
   if (title.length < 1) {
     todoInput.setAttribute('placeholder', 'Please add a title');
   }
-  else if (indexExists) {
+  else if (alreadyExists) {
     clearForm();
     todoInput.setAttribute('placeholder', 'Todo already exists!');
   }
@@ -81,6 +80,7 @@ function renderTodos() {
       container = doneContainer;
       doneCounter++;
     }
+    const categoryIconName = setCategoryIcon(todo.category);
 
     container.innerHTML += `
       <div class="todo">
@@ -195,7 +195,7 @@ function openSettings() {
     const todo = new Todo(title, category, dueDate, false);
     todoArr.push(todo);
     title += ' A'
-    category === 'Activity' ? category = 'Shopping Item' : category = 'Activity';
+    category === 'activity' ? category = 'shopping-item' : category = 'activity';
     dateLol++;
     dueDate = '2022-12-' + dateLol;
   }
