@@ -9,6 +9,8 @@ let todoArr = [];
 
 // Elements
 
+const infoBar = document.querySelector('.info-bar');
+const todoAmountSpan = document.querySelector('.info-bar span')
 const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
 const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
@@ -169,6 +171,8 @@ function manageCompleteStatus(e) {
 function renderInfoBar(todoCounter, doneCounter) { 
   let todo = todoCounter;
   let done = doneCounter;
+  todoAmountSpan.innerText = '';
+  todoAmountSpan.innerText = `${todo} / ${done} completed`;
 }
 
 function clearForm() {
