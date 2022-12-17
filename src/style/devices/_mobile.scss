@@ -101,7 +101,6 @@ header {
 
   #input-label {
     grid-area: input-label;
-    justify-self: center;
     font-size: 1.5rem;
   }
 
@@ -122,8 +121,9 @@ header {
   }
 
   #date-label {
-    grid-area: date;
+    @include flex-center-col;
 
+    grid-area: date;
   }
 
   #category-label {

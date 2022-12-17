@@ -86,17 +86,29 @@ function renderTodos() {
       </div>
       <div class="right-grid">
         <div class="icon1">1</div>
-        <button type="button" class="delete-icon"> 
+        <button type="button" class="delete-icon" data-id="${todo.title}"> 
           <span class="material-symbols-outlined">
           delete
           </span>
         </button
       </li>
       `;
+
   });
 
+  document.querySelectorAll('.delete-icon').forEach(icon => {
+    icon.addEventListener('click', deleteTodo);
+  });
   handleCheckboxes();
+  console.log(todoArr);
   // renderInfoBar();
+}
+
+function deleteTodo(e) {
+  const clickedBtnTitle = e.currentTarget.dataset.id;
+  
+  todoArr.splice(todoArr.indexOf(clickedBtnTitle), 1);
+  renderTodos();
 }
 
 function handleCheckboxes(e) {
