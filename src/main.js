@@ -23,6 +23,8 @@ const categoryInput = document.querySelector('#todo-category');
 const sortingBtn = document.querySelector('.sorting-icon');
 const settingsBtn = document.querySelector('.settings-icon');
 
+let categoryIconName = 'sprint';
+
 /**************** Functions ****************/
 
 function setEventListeners() {
@@ -81,27 +83,35 @@ function renderTodos() {
     }
 
     container.innerHTML += `
-      <li class="todo">
-      <div class="left-grid">
-        <input type="checkbox" data-id="${todo.title}">
+      <div class="todo">
+        <div class="left-grid">
+          <input type="checkbox" data-id="${todo.title}">
+        </div>
+
+        <div class="middle-grid">
+          <p class="todo-title">${todo.title}</p>
+          <div class="date-section">Due: <span>${todo.dueDate}</span></div>
+        </div>
+
+        <div class="right-grid"> 
+          <div class="category-icon-container">
+            <span class="material-symbols-outlined">
+              ${categoryIconName}
+            </span>
+          </div>
+          <button type="button" class="delete-btn" data-id="${todo.title}"> 
+            <span class="material-symbols-outlined">
+              delete
+            </span>
+          </button
+        </div>
+
       </div>
-      <div class="middle-grid">
-        <p class="todo-title">${todo.title}</p>
-        <div class="date-section">Due: ${todo.dueDate}</div>
-      </div>
-      <div class="right-grid">
-        <div class="icon1">1</div>
-        <button type="button" class="delete-icon" data-id="${todo.title}"> 
-          <span class="material-symbols-outlined">
-          delete
-          </span>
-        </button
-      </li>
       `;
   });
 
-  document.querySelectorAll('.delete-icon').forEach(icon => {
-    icon.addEventListener('click', deleteTodo);
+  document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', deleteTodo);
   });
   handleCheckboxes();
   renderInfoBar(todoCounter, doneCounter);
@@ -187,6 +197,7 @@ function openSettings() {
     title += ' A'
     category === 'Activity' ? category = 'Shopping Item' : category = 'Activity';
     dateLol++;
+    dueDate = '2022-12-' + dateLol;
   }
   console.log(todoArr);
   renderTodos();
