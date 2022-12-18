@@ -9,11 +9,13 @@ let todoArr = [];
 
 // Elements
 
-const infoBar = document.querySelector('.info-bar');
+// const infoBar = document.querySelector('.info-bar');
 const todoAmountSpan = document.querySelector('.info-bar span');
+
 const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
 const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
+
 const openAddBtn = document.querySelector('.open-todo-input-btn');
 const inputContainer = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
@@ -68,17 +70,17 @@ function createTodo() {
 
 function renderTodos() {
   let container = '';
-  let todoCounter = 0;
   let doneCounter = 0;
   todoContainer.innerHTML = '';
   doneContainer.innerHTML = '';
   todoArr.forEach(todo => {
+    let textClass = '';
     if (todo.completed === false) {
       container = todoContainer;
-      todoCounter++;
     } else {
       container = doneContainer;
       doneCounter++;
+      textClass = ' done-todo';
     }
     const categoryIconName = setCategoryIcon(todo.category);
 
@@ -89,13 +91,15 @@ function renderTodos() {
         </div>
 
         <div class="middle-grid">
-          <p class="todo-title">${todo.title}</p>
-          <div class="date-section">Due: <span>${todo.dueDate}</span></div>
+          <p class="todo-title${textClass}">${todo.title}</p>
+          <div class="date-section${textClass}">
+            Due: <span>${todo.dueDate}</span>
+          </div>
         </div>
 
         <div class="right-grid"> 
           <div class="category-icon-container">
-            <span class="material-symbols-outlined">
+            <span class="material-symbols-outlined${textClass}">
               ${categoryIconName}
             </span>
           </div>
@@ -110,17 +114,28 @@ function renderTodos() {
       `;
   });
 
+  setBtnListeners();
+  handleCheckboxes();
+  renderInfoBar(doneCounter);
+}
+
+function setBtnListeners() {
   document.querySelectorAll('.delete-btn').forEach(button => {
     button.addEventListener('click', deleteTodo);
   });
-  handleCheckboxes();
-  renderInfoBar(todoCounter, doneCounter);
 }
 
 function deleteTodo(e) {
   const clickedBtnTitle = e.currentTarget.dataset.id;
+  let indexToDel;
 
-  todoArr.splice(todoArr.indexOf(clickedBtnTitle), 1);
+  for (let i = 0; i < todoArr.length; i++) {
+    if (todoArr[i].title === clickedBtnTitle)
+    {
+      indexToDel = i;
+    }
+  }
+  todoArr.splice(Number(indexToDel), 1);
   renderTodos();
 }
 
@@ -164,12 +179,13 @@ function manageCompleteStatus(e) {
   renderTodos();
 }
 
-// TODO:
-function renderInfoBar(todoCounter, doneCounter) {
-  let todo = todoCounter;
+// TODO: more fun stats?
+function renderInfoBar(doneCounter) {
   let done = doneCounter;
   todoAmountSpan.innerText = '';
-  todoAmountSpan.innerText = `${todo} / ${done} completed`;
+  if (todoArr.length > 0) {
+    todoAmountSpan.innerText = `${done} / ${todoArr.length} completed`;
+  }
 }
 
 function clearForm() {
@@ -177,7 +193,9 @@ function clearForm() {
 }
 
 function openSortingMenu() {
-  console.log('sortera här..');
+  modalContainer.innerHTML = `
+  
+  `
 }
 
 /**
