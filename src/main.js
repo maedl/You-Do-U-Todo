@@ -139,7 +139,7 @@ function deleteTodo(e) {
   renderTodos();
 }
 
-function deleteAllCompleted(e) {
+function deleteAllCompleted() {
   let titlesToDelete = [];
   let indexToDel = '';
 
