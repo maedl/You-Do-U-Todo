@@ -17,7 +17,7 @@ const doneContainer = document.querySelector('.done-container');
 const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
 
 const openAddBtn = document.querySelector('.open-todo-input-btn');
-const inputContainer = document.querySelector('.input-section');
+const inputSection = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
 const addTodoBtn = document.querySelector('.add-todo-btn');
 
@@ -26,6 +26,8 @@ const dateInput = document.querySelector('#todo-date');
 const categoryInput = document.querySelector('#todo-category');
 
 const sortingBtn = document.querySelector('.sorting-icon');
+const sortingSection = document.querySelector('.sorting-section');
+
 const settingsBtn = document.querySelector('.settings-icon');
 
 /**************** Functions ****************/
@@ -39,7 +41,7 @@ function setEventListeners() {
   addTodoBtn.addEventListener('click', createTodo);
 }
 function toggleAddTodo() {
-  inputContainer.classList.toggle('input-active');
+  inputSection.classList.toggle('input-active');
   clearForm();
 }
 
@@ -193,9 +195,7 @@ function clearForm() {
 }
 
 function openSortingMenu() {
-  modalContainer.innerHTML = `
-  
-  `
+  sortingSection.classList.toggle('sorting-active');
 }
 
 /**
@@ -218,7 +218,6 @@ function openSettings() {
     dateLol++;
     dueDate = '2022-12-' + dateLol;
   }
-  console.log(todoArr);
   renderTodos();
 }
 
