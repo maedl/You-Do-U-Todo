@@ -19,6 +19,14 @@
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.6);
 }
 
+.passed-due {
+  border: 1px solid rgba(255, 0, 0, 0.6);
+}
+
+.due-in-five {
+  border: 1px solid rgba(243, 247, 36, 0.4);
+}
+
 .hidden {
   display: none;
 }

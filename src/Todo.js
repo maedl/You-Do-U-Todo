@@ -11,8 +11,5 @@ class Todo {
   toggleComplete() {
     this.completed = this.completed ? false : true;
   }
-  logTimeAdded() {
-    console.log(this.timeAdded);
-  }
 }
 export default Todo;

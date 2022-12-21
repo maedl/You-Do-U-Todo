@@ -132,9 +132,11 @@ function renderTodos() {
       textClass = ' done-todo';
     }
     const categoryIconName = setCategoryIcon(todo.category);
+    const deadlineClass = checkDueDate(todo.dueDate);
+    console.log(deadlineClass);
 
     container.innerHTML += `
-      <div class="todo">
+      <li class="todo${deadlineClass}">
         <div class="left-grid">
           <input type="checkbox" data-id="${todo.title}">
         </div>
@@ -159,13 +161,28 @@ function renderTodos() {
           </button
         </div>
 
-      </div>
+      </li>
       `;
   });
 
   setBtnListeners();
   handleCheckboxes();
   renderInfoBar(doneCounter);
+}
+
+function checkDueDate(todoDueDate) {
+  const today = new Date();
+  const dueDate = new Date(todoDueDate);
+
+  if (today > dueDate) {
+    return ' passed-due';
+  }
+
+  if ((dueDate.getDate() - today.getDate()) <= 5) {
+    return ' due-in-five';
+  }
+
+  return '';
 }
 
 function setBtnListeners() {
