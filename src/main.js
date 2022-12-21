@@ -172,18 +172,27 @@ function renderTodos() {
 
 function checkDueDate(todoDueDate) {
   const today = new Date();
+  let yesterday = newDateObject(today, -1);
   const dueDate = new Date(todoDueDate);
+ 
 
-  if (today > dueDate) {
+
+  if (yesterday > dueDate) {
     return ' passed-due';
   }
 
-  if ((dueDate.getDate() - today.getDate()) <= 5) {
+  if (false) {
     return ' due-in-five';
   }
 
   return '';
 }
+
+function newDateObject (date, amount) {
+  let tempDate = new Date(date);
+  tempDate.setDate(tempDate.getDate() + amount)
+  return tempDate;
+};
 
 function setBtnListeners() {
   document.querySelectorAll('.delete-btn').forEach(button => {
