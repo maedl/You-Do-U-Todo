@@ -34,9 +34,38 @@
       <div class="info-bar">Tasks: <span></span></div>
 
       <div class="main-container">
+
+        <section class="sorting-section">
+          <button class="close-sorting-btn close-modal-btn">X</button>
+          <div class="sorting-container">
+            <h2>Sort by:</h2>
+            <ul class="sorting-list">
+              <li>
+                <label for="time-radio">
+                  <input type="radio" name="sorting-radio-btn" id="time-radio">
+                  Time Added
+                </label>
+              </li>
+              <li>
+                <label for="name-radio">
+                  <input type="radio" name="sorting-radio-btn" id="name-radio">
+                  Name
+                </label>
+              </li>
+              <li>
+                <label for="due-date-radio">
+                  <input type="radio" name="sorting-radio-btn" id="due-date-radio">
+                  Due date
+                </label>
+              </li>
+            </ul>
+          </div>
+
+        </section>
+
         <!--TODO: onSubmit in i js?-->
         <form class="input-section" onSubmit="return false;">
-          <button type="button" class="close-input" aria-label="close input box">X</button>
+          <button type="button" class="close-input close-modal-btn" aria-label="close input box">X</button>
           <label for="todo-input" id="input-label"> Add to do: </label>
           <input type="text" id="todo-input" class="todo-input" placeholder="Type something to do.." />
           <label for="todo-date" id="date-label">

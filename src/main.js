@@ -26,6 +26,7 @@ const dateInput = document.querySelector('#todo-date');
 const categoryInput = document.querySelector('#todo-category');
 
 const sortingBtn = document.querySelector('.sorting-icon');
+const closeSortingBtn = document.querySelector('.close-sorting-btn');
 const sortingSection = document.querySelector('.sorting-section');
 
 const settingsBtn = document.querySelector('.settings-icon');
@@ -36,7 +37,8 @@ function setEventListeners() {
   openAddBtn.addEventListener('click', toggleAddTodo);
   delAllCompleteBtn.addEventListener('click', deleteAllCompleted);
   closeInputBtn.addEventListener('click', toggleAddTodo);
-  sortingBtn.addEventListener('click', openSortingMenu);
+  sortingBtn.addEventListener('click', toggleSortingMenu);
+  closeSortingBtn.addEventListener('click', toggleSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
   addTodoBtn.addEventListener('click', createTodo);
 }
@@ -101,7 +103,7 @@ function renderTodos() {
 
         <div class="right-grid"> 
           <div class="category-icon-container">
-            <span class="material-symbols-outlined${textClass}">
+            <span class="material-symbols-outlined">
               ${categoryIconName}
             </span>
           </div>
@@ -194,7 +196,7 @@ function clearForm() {
   document.querySelector('.input-section').reset();
 }
 
-function openSortingMenu() {
+function toggleSortingMenu() {
   sortingSection.classList.toggle('sorting-active');
 }
 
