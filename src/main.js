@@ -257,7 +257,7 @@ function openSettings() {
   let dueDate = '2022-12-' + dateLol;
 
   for (let i = 0; i < 5; i++) {
-    const todo = new Todo(title, category, dueDate, false);
+    const todo = new Todo(title, category, dueDate, dueDate, false);
     todoArr.push(todo);
     title += ' A';
     category === 'activity' ? (category = 'shop-item') : (category = 'activity');

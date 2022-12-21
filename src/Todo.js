@@ -9,7 +9,7 @@ class Todo {
     this.completed = completed;
   }
   toggleComplete() {
-    this.completed === false ? (this.completed = true) : (this.completed = false);
+    this.completed = this.completed ? false : true;
   }
   logTimeAdded() {
     console.log(this.timeAdded);
