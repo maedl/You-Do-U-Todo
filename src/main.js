@@ -9,12 +9,12 @@ let todoArr = [];
 
 // Elements
 
-// const infoBar = document.querySelector('.info-bar');
 const todoAmountSpan = document.querySelector('.info-bar span');
 
+const doneSection = document.querySelector('.done-section');
 const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
-// const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
+const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
 
 const openAddBtn = document.querySelector('.open-todo-input-btn');
 const inputSection = document.querySelector('.input-section');
@@ -36,12 +36,13 @@ const settingsBtn = document.querySelector('.settings-icon');
 
 function setEventListeners() {
   openAddBtn.addEventListener('click', toggleAddTodo);
-  //delAllCompleteBtn.addEventListener('click', deleteAllCompleted);
+  delAllCompleteBtn.addEventListener('click', deleteAllCompleted);
   closeInputBtn.addEventListener('click', toggleAddTodo);
   sortingBtn.addEventListener('click', toggleSortingMenu);
   closeSortingBtn.addEventListener('click', toggleSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
   addTodoBtn.addEventListener('click', createTodo);
+  
 
   sortingRadios.forEach(element => {
     element.addEventListener('change', sortTodos);
@@ -132,9 +133,11 @@ function renderTodos() {
       textClass = ' done-todo';
     }
     const categoryIconName = setCategoryIcon(todo.category);
+    const deadlineClass = checkDueDate(todo.dueDate);
+    console.log(deadlineClass);
 
     container.innerHTML += `
-      <div class="todo">
+      <li class="todo${deadlineClass}">
         <div class="left-grid">
           <input type="checkbox" data-id="${todo.title}">
         </div>
@@ -159,7 +162,7 @@ function renderTodos() {
           </button
         </div>
 
-      </div>
+      </li>
       `;
   });
 
@@ -167,6 +170,38 @@ function renderTodos() {
   handleCheckboxes();
   renderInfoBar(doneCounter);
 }
+
+function checkDueDate(todoDueDate) {
+  const today = new Date();
+  let yesterday = newDateObject(today, -1);
+  const dueDate = new Date(todoDueDate);
+  // const duePlus5 = newDateObject(dueDate, 5);
+
+  if (yesterday > dueDate) {
+    return ' passed-due';
+  }
+
+  /*
+  if (dueDate >= today && dueDate <= duePlus5) { // 🤔 får ej till detta, provat med getTime() och annat
+    return ' due-in-five';
+  }
+  */
+
+  return '';
+}
+
+/**
+ * 
+ * @param {date object} date 
+ * @param {number} amount 
+ * @returns date object
+ * used so the original date object is not changed
+ */
+function newDateObject (date, amount) {
+  let tempDate = new Date(date);
+  tempDate.setDate(tempDate.getDate() + amount)
+  return tempDate;
+};
 
 function setBtnListeners() {
   document.querySelectorAll('.delete-btn').forEach(button => {
@@ -188,18 +223,10 @@ function deleteTodo(e) {
 }
 
 function deleteAllCompleted() {
-  let titlesToDelete = [];
-  let indexToDel = '';
 
-  for (let i = 0; i < todoArr.length; i++) {
-    if (todoArr[i].completed === true) {
-      titlesToDelete.push(todoArr[i].title);
-    }
+  while (todoArr.length > 0) {
+      todoArr.pop();
   }
-  titlesToDelete.forEach(title => {
-    indexToDel = todoArr.indexOf(indexToDel);
-    todoArr.splice(indexToDel, 1);
-  });
   renderTodos();
 }
 
@@ -234,8 +261,14 @@ function renderInfoBar(doneCounter) {
   if (todoArr.length > 0) {
     todoAmountSpan.innerText = `${done} / ${todoArr.length} completed`;
   }
+  if (todoArr.length === doneCounter) {
+    toggleDeleteAllBtn();
+  }
 }
 
+function toggleDeleteAllBtn() {
+  delAllCompleteBtn.classList.toggle('hidden');
+}
 function clearForm() {
   document.querySelector('.input-section').reset();
 }
@@ -257,7 +290,7 @@ function openSettings() {
   let dueDate = '2022-12-' + dateLol;
 
   for (let i = 0; i < 5; i++) {
-    const todo = new Todo(title, category, dueDate, false);
+    const todo = new Todo(title, category, dueDate, dueDate, false);
     todoArr.push(todo);
     title += ' A';
     category === 'activity' ? (category = 'shop-item') : (category = 'activity');
