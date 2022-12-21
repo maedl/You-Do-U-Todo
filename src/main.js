@@ -28,6 +28,7 @@ const categoryInput = document.querySelector('#todo-category');
 const sortingBtn = document.querySelector('.sorting-icon');
 const closeSortingBtn = document.querySelector('.close-sorting-btn');
 const sortingSection = document.querySelector('.sorting-section');
+const sortingRadios = document.querySelectorAll('input[name="sorting-radio-btn"]');
 
 const settingsBtn = document.querySelector('.settings-icon');
 
@@ -41,6 +42,11 @@ function setEventListeners() {
   closeSortingBtn.addEventListener('click', toggleSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
   addTodoBtn.addEventListener('click', createTodo);
+
+  sortingRadios.forEach(element => {
+    element.addEventListener('change', sortTodos);
+  });
+
 }
 function toggleAddTodo() {
   inputSection.classList.toggle('input-active');
@@ -70,6 +76,22 @@ function createTodo() {
     todoInput.setAttribute('placeholder', 'Type something to do..');
     renderTodos();
   }
+}
+
+function sortTodos(e) {
+    let selectedRadio = e.target.id;
+    
+    switch (selectedRadio) {
+      case 'time-radio':
+        console.log('time added');
+      break;
+      case 'name-radio': 
+        console.log('name');
+      break;
+      case 'due-date-radio':
+        console.log('due date');
+      break;
+    }
 }
 
 function renderTodos() {
