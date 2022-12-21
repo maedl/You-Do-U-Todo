@@ -46,7 +46,6 @@ function setEventListeners() {
   sortingRadios.forEach(element => {
     element.addEventListener('change', sortTodos);
   });
-
 }
 function toggleAddTodo() {
   inputSection.classList.toggle('input-active');
@@ -80,46 +79,42 @@ function createTodo() {
 }
 
 function sortTodos(e) {
-    let selectedRadio = e.target.id;
+  let selectedRadio = e.target.id;
 
-    switch (selectedRadio) {
-      case 'time-radio':
-        console.log('time', todoArr);
-        todoArr.sort( (a, b) => { return a.timeAdded - b.timeAdded; } )
-        console.log('time after sort', todoArr);
+  switch (selectedRadio) {
+    case 'time-radio':
+      todoArr.sort((a, b) => {
+        return a.timeAdded - b.timeAdded;
+      });
       break;
 
-      case 'name-radio': 
-      console.log('title', todoArr);
-        todoArr.sort( (a, b) => {
-          if (a.title < b.title) {
-            return -1;
-          }
-          if (a.title > b.title) {
-            return 1;
-          }
-          return 0;
-        });
-        console.log('title after sort', todoArr);
+    case 'name-radio':
+      todoArr.sort((a, b) => {
+        if (a.title < b.title) {
+          return -1;
+        }
+        if (a.title > b.title) {
+          return 1;
+        }
+        return 0;
+      });
       break;
 
-      case 'due-date-radio':
-        console.log('dueDate', todoArr);
-        todoArr.sort( (a, b) => {
-          if (a.dueDate < b.dueDate) {
-            return -1;
-          }
-          if (a.dueDate > b.dueDate) {
-            return 1;
-          }
-          return 0;
-        });
-        console.log('dueDate after sort', todoArr);
+    case 'due-date-radio':
+      todoArr.sort((a, b) => {
+        if (a.dueDate < b.dueDate) {
+          return -1;
+        }
+        if (a.dueDate > b.dueDate) {
+          return 1;
+        }
+        return 0;
+      });
       break;
-    }
+  }
 
-    renderTodos();
-    toggleSortingMenu();
+  renderTodos();
+  toggleSortingMenu();
 }
 
 function renderTodos() {
@@ -184,8 +179,7 @@ function deleteTodo(e) {
   let indexToDel;
 
   for (let i = 0; i < todoArr.length; i++) {
-    if (todoArr[i].title === clickedBtnTitle)
-    {
+    if (todoArr[i].title === clickedBtnTitle) {
       indexToDel = i;
     }
   }
