@@ -37,12 +37,12 @@
 
         <section class="sorting-section">
           <button class="close-sorting-btn close-modal-btn">X</button>
-          <div class="sorting-container">
+          <form name="sorting-form" class="sorting-container">
             <h2>Sort by:</h2>
             <ul class="sorting-list">
               <li>
                 <label for="time-radio">
-                  <input type="radio" name="sorting-radio-btn" id="time-radio">
+                  <input type="radio" name="sorting-radio-btn" id="time-radio" checked>
                   Time Added
                 </label>
               </li>
@@ -59,12 +59,12 @@
                 </label>
               </li>
             </ul>
-          </div>
+          </form>
 
         </section>
 
         <!--TODO: onSubmit in i js?-->
-        <form class="input-section" onSubmit="return false;">
+        <form name="input-form" class="input-section" onSubmit="return false;">
           <button type="button" class="close-input close-modal-btn" aria-label="close input box">X</button>
           <label for="todo-input" id="input-label"> Add to do: </label>
           <input type="text" id="todo-input" class="todo-input" placeholder="Type something to do.." />
@@ -93,7 +93,7 @@
 
         <section class="done-section">
           <h2>Done:</h2>
-          <button class="del-all-complete-btn" disabled>Clear all done</button>
+          
           <ul class="done-container"></ul>
         </section>
       </div>

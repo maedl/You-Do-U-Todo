@@ -14,7 +14,7 @@ const todoAmountSpan = document.querySelector('.info-bar span');
 
 const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
-const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
+// const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
 
 const openAddBtn = document.querySelector('.open-todo-input-btn');
 const inputSection = document.querySelector('.input-section');
@@ -36,7 +36,7 @@ const settingsBtn = document.querySelector('.settings-icon');
 
 function setEventListeners() {
   openAddBtn.addEventListener('click', toggleAddTodo);
-  delAllCompleteBtn.addEventListener('click', deleteAllCompleted);
+  //delAllCompleteBtn.addEventListener('click', deleteAllCompleted);
   closeInputBtn.addEventListener('click', toggleAddTodo);
   sortingBtn.addEventListener('click', toggleSortingMenu);
   closeSortingBtn.addEventListener('click', toggleSortingMenu);
@@ -57,6 +57,7 @@ function createTodo() {
   const title = todoInput.value;
   const category = categoryInput.options[categoryInput.selectedIndex].value;
   let dueDate = dateInput.value;
+  let timeAdded = new Date().getTime();
   let alreadyExists = false;
   todoArr.forEach(todo => {
     if (title === todo.title) {
@@ -70,7 +71,7 @@ function createTodo() {
     clearForm();
     todoInput.setAttribute('placeholder', 'Todo already exists!');
   } else {
-    const todo = new Todo(title, category, dueDate, false);
+    const todo = new Todo(title, category, dueDate, timeAdded, false);
     todoArr.push(todo);
     clearForm();
     todoInput.setAttribute('placeholder', 'Type something to do..');
@@ -80,18 +81,45 @@ function createTodo() {
 
 function sortTodos(e) {
     let selectedRadio = e.target.id;
-    
+
     switch (selectedRadio) {
       case 'time-radio':
-        console.log('time added');
+        console.log('time', todoArr);
+        todoArr.sort( (a, b) => { return a.timeAdded - b.timeAdded; } )
+        console.log('time after sort', todoArr);
       break;
+
       case 'name-radio': 
-        console.log('name');
+      console.log('title', todoArr);
+        todoArr.sort( (a, b) => {
+          if (a.title < b.title) {
+            return -1;
+          }
+          if (a.title > b.title) {
+            return 1;
+          }
+          return 0;
+        });
+        console.log('title after sort', todoArr);
       break;
+
       case 'due-date-radio':
-        console.log('due date');
+        console.log('dueDate', todoArr);
+        todoArr.sort( (a, b) => {
+          if (a.dueDate < b.dueDate) {
+            return -1;
+          }
+          if (a.dueDate > b.dueDate) {
+            return 1;
+          }
+          return 0;
+        });
+        console.log('dueDate after sort', todoArr);
       break;
     }
+
+    renderTodos();
+    toggleSortingMenu();
 }
 
 function renderTodos() {
