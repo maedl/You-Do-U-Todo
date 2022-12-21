@@ -9,7 +9,30 @@ body {
   padding-bottom: var(--footer-height);
 }
 
-// main
+main {
+  position: relative;
+}
+
+.sorting-section {
+  display: none;
+}
+
+.sorting-active {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--background-color);
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  height: calc(100vh - var(--header-height));
+  z-index: 1;
+}
+
+.sorting-container {
+  padding-top: 4rem;
+}
 
 header {
   @include flex-center-col;
@@ -46,17 +69,6 @@ header {
   padding: 0.25rem;
 }
 
-.main-container {
-  // border: 1px solid green;
-  padding: 1rem 1rem;
-  padding-bottom: calc(var(--footer-height) - 2vh); // för att "+-knappen" inte ska dölja content
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: calc(80vh - (var(--header-height) + var(--footer-height)));
-  overflow-y: auto;
-}
-
 .input-section {
   display: none; // toggla en util-klass ist? ( toggleAddTodo() )
 }
@@ -67,7 +79,7 @@ header {
   position: fixed;
   left: 0;
   right: 0;
-  top: 0;
+  top: var(--header-height);
   padding: 5rem 2rem;
   display: grid;
   row-gap: 2rem;
@@ -78,26 +90,6 @@ header {
     '. input input .'
     'date date category category'
     '. add-item reset-btn . ';
-
-  button.close-input {
-    background-color: var(--red-color);
-    box-shadow: var(--box-shadow);
-    color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    background-color: fff;
-    cursor: pointer;
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    height: 35px;
-    width: 35px;
-    font-size: 1.25rem;
-    font-weight: 700;
-    border-radius: 50%;
-  }
 
   #input-label {
     grid-area: input-label;
@@ -160,6 +152,7 @@ header {
 .todo-section,
 .done-section {
   margin-bottom: 1rem;
+  padding: 1rem;
 
   h2 {
     align-self: flex-start;
@@ -185,6 +178,11 @@ header {
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
     margin-left: 1rem;
+
+    &:disabled {
+      opacity: 0;
+      cursor: default;
+    }
   }
 }
 
@@ -197,6 +195,8 @@ ul {
 .todo-container,
 .done-container {
   @include flex-center-col;
+
+  padding: 0.25rem;
 
   .todo {
     box-shadow: var(--box-shadow), 0px 0px 2px 0px rgba(255, 255, 255, 1);

@@ -19,13 +19,26 @@
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.6);
 }
 
-@mixin flex-center-col {
+.hidden {
+  display: none;
+}
+
+.close-modal-btn {
+  background-color: var(--red-color);
+  box-shadow: var(--box-shadow);
+  color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
-}
-
-.display-none {
-  display: none;
+  border: none;
+  background-color: fff;
+  cursor: pointer;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  height: 35px;
+  width: 35px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-radius: 50%;
 }

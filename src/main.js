@@ -14,10 +14,10 @@ const todoAmountSpan = document.querySelector('.info-bar span');
 
 const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
-const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
+// const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
 
 const openAddBtn = document.querySelector('.open-todo-input-btn');
-const inputContainer = document.querySelector('.input-section');
+const inputSection = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
 const addTodoBtn = document.querySelector('.add-todo-btn');
 
@@ -26,20 +26,29 @@ const dateInput = document.querySelector('#todo-date');
 const categoryInput = document.querySelector('#todo-category');
 
 const sortingBtn = document.querySelector('.sorting-icon');
+const closeSortingBtn = document.querySelector('.close-sorting-btn');
+const sortingSection = document.querySelector('.sorting-section');
+const sortingRadios = document.querySelectorAll('input[name="sorting-radio-btn"]');
+
 const settingsBtn = document.querySelector('.settings-icon');
 
 /**************** Functions ****************/
 
 function setEventListeners() {
   openAddBtn.addEventListener('click', toggleAddTodo);
-  delAllCompleteBtn.addEventListener('click', deleteAllCompleted);
+  //delAllCompleteBtn.addEventListener('click', deleteAllCompleted);
   closeInputBtn.addEventListener('click', toggleAddTodo);
-  sortingBtn.addEventListener('click', openSortingMenu);
+  sortingBtn.addEventListener('click', toggleSortingMenu);
+  closeSortingBtn.addEventListener('click', toggleSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
   addTodoBtn.addEventListener('click', createTodo);
+
+  sortingRadios.forEach(element => {
+    element.addEventListener('change', sortTodos);
+  });
 }
 function toggleAddTodo() {
-  inputContainer.classList.toggle('input-active');
+  inputSection.classList.toggle('input-active');
   clearForm();
 }
 
@@ -47,6 +56,7 @@ function createTodo() {
   const title = todoInput.value;
   const category = categoryInput.options[categoryInput.selectedIndex].value;
   let dueDate = dateInput.value;
+  let timeAdded = new Date().getTime();
   let alreadyExists = false;
   todoArr.forEach(todo => {
     if (title === todo.title) {
@@ -60,12 +70,51 @@ function createTodo() {
     clearForm();
     todoInput.setAttribute('placeholder', 'Todo already exists!');
   } else {
-    const todo = new Todo(title, category, dueDate, false);
+    const todo = new Todo(title, category, dueDate, timeAdded, false);
     todoArr.push(todo);
     clearForm();
     todoInput.setAttribute('placeholder', 'Type something to do..');
     renderTodos();
   }
+}
+
+function sortTodos(e) {
+  let selectedRadio = e.target.id;
+
+  switch (selectedRadio) {
+    case 'time-radio':
+      todoArr.sort((a, b) => {
+        return a.timeAdded - b.timeAdded;
+      });
+      break;
+
+    case 'name-radio':
+      todoArr.sort((a, b) => {
+        if (a.title < b.title) {
+          return -1;
+        }
+        if (a.title > b.title) {
+          return 1;
+        }
+        return 0;
+      });
+      break;
+
+    case 'due-date-radio':
+      todoArr.sort((a, b) => {
+        if (a.dueDate < b.dueDate) {
+          return -1;
+        }
+        if (a.dueDate > b.dueDate) {
+          return 1;
+        }
+        return 0;
+      });
+      break;
+  }
+
+  renderTodos();
+  toggleSortingMenu();
 }
 
 function renderTodos() {
@@ -99,7 +148,7 @@ function renderTodos() {
 
         <div class="right-grid"> 
           <div class="category-icon-container">
-            <span class="material-symbols-outlined${textClass}">
+            <span class="material-symbols-outlined">
               ${categoryIconName}
             </span>
           </div>
@@ -130,8 +179,7 @@ function deleteTodo(e) {
   let indexToDel;
 
   for (let i = 0; i < todoArr.length; i++) {
-    if (todoArr[i].title === clickedBtnTitle)
-    {
+    if (todoArr[i].title === clickedBtnTitle) {
       indexToDel = i;
     }
   }
@@ -139,7 +187,7 @@ function deleteTodo(e) {
   renderTodos();
 }
 
-function deleteAllCompleted(e) {
+function deleteAllCompleted() {
   let titlesToDelete = [];
   let indexToDel = '';
 
@@ -192,10 +240,8 @@ function clearForm() {
   document.querySelector('.input-section').reset();
 }
 
-function openSortingMenu() {
-  modalContainer.innerHTML = `
-  
-  `
+function toggleSortingMenu() {
+  sortingSection.classList.toggle('sorting-active');
 }
 
 /**
@@ -218,7 +264,6 @@ function openSettings() {
     dateLol++;
     dueDate = '2022-12-' + dateLol;
   }
-  console.log(todoArr);
   renderTodos();
 }
 
