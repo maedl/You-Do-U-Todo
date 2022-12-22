@@ -35,14 +35,12 @@ main {
 }
 
 header {
-
-
   background-image: url('/src/images/mobile-header3.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position-y: 20%;
   background-color: var(--primary-color);
-  
+
   position: sticky;
   top: 0;
   left: 0;
@@ -55,7 +53,7 @@ header {
 
   height: var(--header-height);
   padding-top: 1rem;
-  background-color: rgba(89, 41, 219, 0.9);
+  background-color: rgba(89, 41, 219, 0.85);
 }
 
 .logo-container {

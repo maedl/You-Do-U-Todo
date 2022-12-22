@@ -42,7 +42,6 @@ function setEventListeners() {
   closeSortingBtn.addEventListener('click', toggleSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
   addTodoBtn.addEventListener('click', createTodo);
-  
 
   sortingRadios.forEach(element => {
     element.addEventListener('change', sortTodos);
@@ -175,33 +174,34 @@ function checkDueDate(todoDueDate) {
   const today = new Date();
   let yesterday = newDateObject(today, -1);
   const dueDate = new Date(todoDueDate);
-  // const duePlus5 = newDateObject(dueDate, 5);
-
+  const duePlus5 = newDateObject(dueDate, 5);
+  /*
+  console.log({today});
+  console.log({yesterday});
+  console.log({dueDate});
+  console.log({duePlus5});
+*/
   if (yesterday > dueDate) {
     return ' passed-due';
-  }
-
-  /*
-  if (dueDate >= today && dueDate <= duePlus5) { // 🤔 får ej till detta, provat med getTime() och annat
+  } else if (dueDate <= duePlus5 && today >= dueDate) {
     return ' due-in-five';
+  } else {
+    return '';
   }
-  */
-
-  return '';
 }
 
 /**
- * 
- * @param {date object} date 
- * @param {number} amount 
- * @returns date object
+ *
+ * @param {date object} date to moidify
+ * @param {number} amount of days
+ * @returns new date object
  * used so the original date object is not changed
  */
-function newDateObject (date, amount) {
+function newDateObject(date, amount) {
   let tempDate = new Date(date);
-  tempDate.setDate(tempDate.getDate() + amount)
+  tempDate.setDate(tempDate.getDate() + amount);
   return tempDate;
-};
+}
 
 function setBtnListeners() {
   document.querySelectorAll('.delete-btn').forEach(button => {
@@ -223,9 +223,8 @@ function deleteTodo(e) {
 }
 
 function deleteAllCompleted() {
-
   while (todoArr.length > 0) {
-      todoArr.pop();
+    todoArr.pop();
   }
   renderTodos();
 }
