@@ -74,8 +74,31 @@ function createTodo() {
     todoArr.push(todo);
     toggleAddTodo();
     todoInput.setAttribute('placeholder', 'Type something to do..');
+    setArrToStorage();
     renderTodos();
   }
+}
+
+function setArrToStorage() {
+  localStorage.setItem('todoList', JSON.stringify(todoArr));
+}
+
+/**
+ * need to create new objects from localStorage using todo constructor
+ * to be able to use methods from Todo.js
+ */
+function getArrFromStorage() {
+  let todoObjects = JSON.parse(localStorage.getItem('todoList'));
+  todoArr = [];
+  todoObjects.forEach(object => {
+    const title = object.title;
+    const category = object.category;
+    const dueDate = object.dueDate;
+    const timeAdded = object.timeAdded;
+    const completed = object.completed;
+    const todo = new Todo(title, category, dueDate, timeAdded, completed);
+    todoArr.push(todo);
+  })
 }
 
 function sortTodos(e) {
@@ -118,6 +141,7 @@ function sortTodos(e) {
 }
 
 function renderTodos() {
+  getArrFromStorage();
   let container = '';
   let doneCounter = 0;
   todoContainer.innerHTML = '';
@@ -212,6 +236,7 @@ function setBtnListeners() {
 function deleteTodo(e) {
   const clickedBtnTitle = e.currentTarget.dataset.id;
   let indexToDel;
+  console.log(e);
 
   for (let i = 0; i < todoArr.length; i++) {
     if (todoArr[i].title === clickedBtnTitle) {
@@ -219,6 +244,7 @@ function deleteTodo(e) {
     }
   }
   todoArr.splice(Number(indexToDel), 1);
+  setArrToStorage();
   renderTodos();
 }
 
@@ -226,6 +252,7 @@ function deleteAllCompleted() {
   while (todoArr.length > 0) {
     todoArr.pop();
   }
+  setArrToStorage();
   renderTodos();
 }
 
@@ -250,6 +277,7 @@ function manageCompleteStatus(e) {
       todoArr[i].toggleComplete();
     }
   }
+  setArrToStorage();
   renderTodos();
 }
 
@@ -277,28 +305,13 @@ function toggleSortingMenu() {
 }
 
 /**
- * meny eller about eller nåt..  men just nu skriver den bara ut exempel-todos!
+ * meny eller about eller nåt..  men just nu gör den ingenting!
  */
 function openSettings() {
-  // obs ej samma funktionalitet som riktiga todos..
-  // bara för test av sortering och design
 
-  let title = 'A';
-  let category = 'activity';
-  let dateLol = 24;
-  let dueDate = '2022-12-' + dateLol;
-
-  for (let i = 0; i < 5; i++) {
-    const todo = new Todo(title, category, dueDate, dueDate, false);
-    todoArr.push(todo);
-    title += ' A';
-    category === 'activity' ? (category = 'shop-item') : (category = 'activity');
-    dateLol++;
-    dueDate = '2022-12-' + dateLol;
-  }
-  renderTodos();
 }
 
 /**************** Program Flow ****************/
 
 setEventListeners();
+renderTodos();
