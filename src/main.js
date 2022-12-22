@@ -42,7 +42,6 @@ function setEventListeners() {
   closeSortingBtn.addEventListener('click', toggleSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
   addTodoBtn.addEventListener('click', createTodo);
-  
 
   sortingRadios.forEach(element => {
     element.addEventListener('change', sortTodos);
@@ -73,10 +72,33 @@ function createTodo() {
   } else {
     const todo = new Todo(title, category, dueDate, timeAdded, false);
     todoArr.push(todo);
-    clearForm();
+    toggleAddTodo();
     todoInput.setAttribute('placeholder', 'Type something to do..');
+    setArrToStorage();
     renderTodos();
   }
+}
+
+function setArrToStorage() {
+  localStorage.setItem('todoList', JSON.stringify(todoArr));
+}
+
+/**
+ * need to create new objects from localStorage using todo constructor
+ * to be able to use methods from Todo.js
+ */
+function getArrFromStorage() {
+  let todoObjects = JSON.parse(localStorage.getItem('todoList'));
+  todoArr = [];
+  todoObjects.forEach(object => {
+    const title = object.title;
+    const category = object.category;
+    const dueDate = object.dueDate;
+    const timeAdded = object.timeAdded;
+    const completed = object.completed;
+    const todo = new Todo(title, category, dueDate, timeAdded, completed);
+    todoArr.push(todo);
+  })
 }
 
 function sortTodos(e) {
@@ -119,6 +141,7 @@ function sortTodos(e) {
 }
 
 function renderTodos() {
+  getArrFromStorage();
   let container = '';
   let doneCounter = 0;
   todoContainer.innerHTML = '';
@@ -175,33 +198,34 @@ function checkDueDate(todoDueDate) {
   const today = new Date();
   let yesterday = newDateObject(today, -1);
   const dueDate = new Date(todoDueDate);
-  // const duePlus5 = newDateObject(dueDate, 5);
-
+  const duePlus5 = newDateObject(dueDate, 5);
+  /*
+  console.log({today});
+  console.log({yesterday});
+  console.log({dueDate});
+  console.log({duePlus5});
+*/
   if (yesterday > dueDate) {
     return ' passed-due';
-  }
-
-  /*
-  if (dueDate >= today && dueDate <= duePlus5) { // 🤔 får ej till detta, provat med getTime() och annat
+  } else if (dueDate <= duePlus5 && today >= dueDate) {
     return ' due-in-five';
+  } else {
+    return '';
   }
-  */
-
-  return '';
 }
 
 /**
- * 
- * @param {date object} date 
- * @param {number} amount 
- * @returns date object
+ *
+ * @param {date object} date to moidify
+ * @param {number} amount of days
+ * @returns new date object
  * used so the original date object is not changed
  */
-function newDateObject (date, amount) {
+function newDateObject(date, amount) {
   let tempDate = new Date(date);
-  tempDate.setDate(tempDate.getDate() + amount)
+  tempDate.setDate(tempDate.getDate() + amount);
   return tempDate;
-};
+}
 
 function setBtnListeners() {
   document.querySelectorAll('.delete-btn').forEach(button => {
@@ -212,6 +236,7 @@ function setBtnListeners() {
 function deleteTodo(e) {
   const clickedBtnTitle = e.currentTarget.dataset.id;
   let indexToDel;
+  console.log(e);
 
   for (let i = 0; i < todoArr.length; i++) {
     if (todoArr[i].title === clickedBtnTitle) {
@@ -219,14 +244,15 @@ function deleteTodo(e) {
     }
   }
   todoArr.splice(Number(indexToDel), 1);
+  setArrToStorage();
   renderTodos();
 }
 
 function deleteAllCompleted() {
-
   while (todoArr.length > 0) {
-      todoArr.pop();
+    todoArr.pop();
   }
+  setArrToStorage();
   renderTodos();
 }
 
@@ -251,6 +277,7 @@ function manageCompleteStatus(e) {
       todoArr[i].toggleComplete();
     }
   }
+  setArrToStorage();
   renderTodos();
 }
 
@@ -278,28 +305,13 @@ function toggleSortingMenu() {
 }
 
 /**
- * meny eller about eller nåt..  men just nu skriver den bara ut exempel-todos!
+ * meny eller about eller nåt..  men just nu gör den ingenting!
  */
 function openSettings() {
-  // obs ej samma funktionalitet som riktiga todos..
-  // bara för test av sortering och design
 
-  let title = 'A';
-  let category = 'activity';
-  let dateLol = 24;
-  let dueDate = '2022-12-' + dateLol;
-
-  for (let i = 0; i < 5; i++) {
-    const todo = new Todo(title, category, dueDate, dueDate, false);
-    todoArr.push(todo);
-    title += ' A';
-    category === 'activity' ? (category = 'shop-item') : (category = 'activity');
-    dateLol++;
-    dueDate = '2022-12-' + dateLol;
-  }
-  renderTodos();
 }
 
 /**************** Program Flow ****************/
 
 setEventListeners();
+renderTodos();

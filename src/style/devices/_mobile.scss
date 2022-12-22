@@ -35,10 +35,12 @@ main {
 }
 
 header {
-  @include flex-center-col;
-
+  background-image: url('/src/images/mobile-header3.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position-y: 20%;
   background-color: var(--primary-color);
-  padding-top: 0.5rem;
+
   position: sticky;
   top: 0;
   left: 0;
@@ -46,9 +48,18 @@ header {
   height: var(--header-height);
 }
 
+.logo-wrapper {
+  @include flex-center-col;
+
+  height: var(--header-height);
+  padding-top: 1rem;
+  background: rgb(58,78,180);
+  background: linear-gradient(90deg, rgba(58,78,180,0.9047327549183736) 0%, rgba(46,69,185,0.8543125868511467) 50%, rgba(36,67,225,0.9047327549183736) 100%);
+}
+
 .logo-container {
   h1 {
-    text-shadow: -1px 2px 2px rgba(114, 114, 114, 0.9);
+    text-shadow: -1px 2px 2px rgba(114, 114, 114, 1);
   }
 }
 
@@ -114,6 +125,7 @@ header {
 
   #date-label {
     @include flex-center-col;
+    margin-right: 1rem;
 
     grid-area: date;
   }
@@ -123,6 +135,13 @@ header {
 
     grid-area: category;
     width: max-content;
+  }
+
+  .todo-datepicker,
+  .todo-category {
+    margin-top: 0.125rem;
+    padding: 0.125rem 0.5rem;
+    width: 40vw;
   }
 
   .add-todo-btn,
@@ -306,6 +325,7 @@ footer {
   transform: translateX(-50%);
   height: 4rem;
   width: 4rem;
+  padding: 2.25rem;
   font-size: 3rem;
   border-radius: 50%;
   display: flex;
