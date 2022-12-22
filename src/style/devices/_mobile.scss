@@ -53,7 +53,8 @@ header {
 
   height: var(--header-height);
   padding-top: 1rem;
-  background-color: rgba(89, 41, 219, 0.85);
+  background: rgb(58,78,180);
+  background: linear-gradient(90deg, rgba(58,78,180,0.9047327549183736) 0%, rgba(46,69,185,0.8543125868511467) 50%, rgba(36,67,225,0.9047327549183736) 100%);
 }
 
 .logo-container {
