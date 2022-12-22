@@ -73,7 +73,7 @@ function createTodo() {
   } else {
     const todo = new Todo(title, category, dueDate, timeAdded, false);
     todoArr.push(todo);
-    clearForm();
+    toggleAddTodo();
     todoInput.setAttribute('placeholder', 'Type something to do..');
     renderTodos();
   }
