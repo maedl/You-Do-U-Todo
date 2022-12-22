@@ -124,6 +124,7 @@ header {
 
   #date-label {
     @include flex-center-col;
+    margin-right: 1rem;
 
     grid-area: date;
   }
@@ -133,6 +134,13 @@ header {
 
     grid-area: category;
     width: max-content;
+  }
+
+  .todo-datepicker,
+  .todo-category {
+    margin-top: 0.125rem;
+    padding: 0.125rem 0.5rem;
+    width: 40vw;
   }
 
   .add-todo-btn,
@@ -316,6 +324,7 @@ footer {
   transform: translateX(-50%);
   height: 4rem;
   width: 4rem;
+  padding: 2.25rem;
   font-size: 3rem;
   border-radius: 50%;
   display: flex;
