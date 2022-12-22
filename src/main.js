@@ -84,8 +84,8 @@ function setArrToStorage() {
 }
 
 /**
- * need to create new objects from localStorage using todo constructor
- * to be able to use methods from Todo.js
+ * need to create new objects from localStorage using 
+ * todo constructor to be able to use methods from Todo.js
  */
 function getArrFromStorage() {
   let todoObjects = JSON.parse(localStorage.getItem('todoList'));

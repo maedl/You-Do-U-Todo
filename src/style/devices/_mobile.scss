@@ -342,3 +342,28 @@ footer {
     box-shadow: 2px 2px 11px 2px rgba(114, 114, 114, 0.4);
   }
 }
+
+@media screen and (orientation:landscape)
+and (max-device-height: 600px) {
+    .input-active {
+      top: 0;
+      padding: 0;
+      row-gap: 1rem;
+    }
+
+
+   header,
+   .logo-wrapper,
+   .logo-container {
+    height: 0;
+    display: none;
+   }
+
+   .info-bar {
+    top: 0;
+   }
+
+   footer {
+    height: calc(var(--footer-height) * 2);
+   }
+}
