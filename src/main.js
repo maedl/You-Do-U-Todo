@@ -20,7 +20,7 @@ const openAddBtn = document.querySelector('.open-todo-input-btn');
 const inputSection = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
 const addTodoBtn = document.querySelector('.add-todo-btn');
-const resetFormBtn = document.querySelector('.reset-btn')
+const resetFormBtn = document.querySelector('.reset-btn');
 
 const todoInput = document.querySelector('#todo-input');
 const dateInput = document.querySelector('#todo-date');
@@ -86,7 +86,7 @@ function setArrToStorage() {
 }
 
 /**
- * need to create new objects from localStorage using 
+ * need to create new objects from localStorage using
  * todo constructor to be able to use methods from Todo.js
  */
 function getArrFromStorage() {
@@ -100,9 +100,14 @@ function getArrFromStorage() {
     const completed = object.completed;
     const todo = new Todo(title, category, dueDate, timeAdded, completed);
     todoArr.push(todo);
-  })
+  });
 }
 
+/**
+ *
+ * @param {event} e
+ * TODO: case insensitive title sort
+ */
 function sortTodos(e) {
   let selectedRadio = e.target.id;
 
@@ -137,7 +142,7 @@ function sortTodos(e) {
       });
       break;
   }
-
+  setArrToStorage();
   renderTodos();
   toggleSortingMenu();
 }
@@ -159,7 +164,6 @@ function renderTodos() {
     }
     const categoryIconName = setCategoryIcon(todo.category);
     const deadlineClass = checkDueDate(todo.dueDate);
-    console.log(deadlineClass);
 
     container.innerHTML += `
       <li class="todo${deadlineClass}">
@@ -238,7 +242,6 @@ function setBtnListeners() {
 function deleteTodo(e) {
   const clickedBtnTitle = e.currentTarget.dataset.id;
   let indexToDel;
-  console.log(e);
 
   for (let i = 0; i < todoArr.length; i++) {
     if (todoArr[i].title === clickedBtnTitle) {
@@ -256,7 +259,7 @@ function deleteAllCompleted() {
   }
   setArrToStorage();
   renderTodos();
-  delAllCompleteBtn.classList.toggle('hidden');   // if button is clicked, it does its job and disappears
+  delAllCompleteBtn.classList.toggle('hidden'); // if button is clicked, it does its job and disappears
 }
 
 function handleCheckboxes(e) {
@@ -285,8 +288,8 @@ function manageCompleteStatus(e) {
 }
 
 /**
- * 
- * @param {number} doneCounter 
+ *
+ * @param {number} doneCounter
  * TODO: own function for delete button
  */
 function renderInfoBar(doneCounter) {
@@ -316,9 +319,7 @@ function toggleSortingMenu() {
 /**
  * meny eller about eller nåt..  men just nu gör den ingenting!
  */
-function openSettings() {
-
-}
+function openSettings() {}
 
 /**************** Program Flow ****************/
 

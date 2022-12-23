@@ -15,7 +15,7 @@
   .input-active {
     row-gap: 3rem;
     padding: 6rem 3rem;
-    
+
     .todo-input {
       height: 3rem;
       width: 80%;
@@ -29,7 +29,7 @@
 
     input:not([type='text']),
     select {
-    height: 3rem;
+      height: 3rem;
     }
 
     .todo-datepicker,
