@@ -287,6 +287,7 @@ function manageCompleteStatus(e) {
 /**
  * 
  * @param {number} doneCounter 
+ * TODO: own function for delete button
  */
 function renderInfoBar(doneCounter) {
   let done = doneCounter;
@@ -294,12 +295,12 @@ function renderInfoBar(doneCounter) {
   if (todoArr.length > 0) {
     todoAmountSpan.innerText = `${done} / ${todoArr.length} completed`;
 
-    if (todoArr.length === doneCounter) {
+    if (todoArr.length === done) {
       delAllCompleteBtn.classList.remove('hidden');
     }
   }
 
-  if (todoArr.length > 0 && doneCounter === 0) {
+  if (todoArr.length > 0 && done !== todoArr.length) {
     delAllCompleteBtn.classList.add('hidden');
   }
 }
