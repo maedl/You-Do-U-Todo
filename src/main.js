@@ -20,6 +20,7 @@ const openAddBtn = document.querySelector('.open-todo-input-btn');
 const inputSection = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
 const addTodoBtn = document.querySelector('.add-todo-btn');
+const resetFormBtn = document.querySelector('.reset-btn')
 
 const todoInput = document.querySelector('#todo-input');
 const dateInput = document.querySelector('#todo-date');
@@ -42,6 +43,7 @@ function setEventListeners() {
   closeSortingBtn.addEventListener('click', toggleSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
   addTodoBtn.addEventListener('click', createTodo);
+  resetFormBtn.addEventListener('click', clearForm);
 
   sortingRadios.forEach(element => {
     element.addEventListener('change', sortTodos);
@@ -84,8 +86,8 @@ function setArrToStorage() {
 }
 
 /**
- * need to create new objects from localStorage using todo constructor
- * to be able to use methods from Todo.js
+ * need to create new objects from localStorage using 
+ * todo constructor to be able to use methods from Todo.js
  */
 function getArrFromStorage() {
   let todoObjects = JSON.parse(localStorage.getItem('todoList'));
@@ -254,6 +256,7 @@ function deleteAllCompleted() {
   }
   setArrToStorage();
   renderTodos();
+  delAllCompleteBtn.classList.toggle('hidden');   // if button is clicked, it does its job and disappears
 }
 
 function handleCheckboxes(e) {
@@ -281,21 +284,27 @@ function manageCompleteStatus(e) {
   renderTodos();
 }
 
-// TODO: more fun stats?
+/**
+ * 
+ * @param {number} doneCounter 
+ * TODO: own function for delete button
+ */
 function renderInfoBar(doneCounter) {
   let done = doneCounter;
   todoAmountSpan.innerText = '';
   if (todoArr.length > 0) {
     todoAmountSpan.innerText = `${done} / ${todoArr.length} completed`;
+
+    if (todoArr.length === done) {
+      delAllCompleteBtn.classList.remove('hidden');
+    }
   }
-  if (todoArr.length === doneCounter) {
-    toggleDeleteAllBtn();
+
+  if (todoArr.length > 0 && done !== todoArr.length) {
+    delAllCompleteBtn.classList.add('hidden');
   }
 }
 
-function toggleDeleteAllBtn() {
-  delAllCompleteBtn.classList.toggle('hidden');
-}
 function clearForm() {
   document.querySelector('.input-section').reset();
 }
