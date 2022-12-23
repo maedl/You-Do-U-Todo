@@ -20,6 +20,7 @@ const openAddBtn = document.querySelector('.open-todo-input-btn');
 const inputSection = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
 const addTodoBtn = document.querySelector('.add-todo-btn');
+const resetFormBtn = document.querySelector('.reset-btn')
 
 const todoInput = document.querySelector('#todo-input');
 const dateInput = document.querySelector('#todo-date');
@@ -42,6 +43,7 @@ function setEventListeners() {
   closeSortingBtn.addEventListener('click', toggleSortingMenu);
   settingsBtn.addEventListener('click', openSettings);
   addTodoBtn.addEventListener('click', createTodo);
+  resetFormBtn.addEventListener('click', clearForm);
 
   sortingRadios.forEach(element => {
     element.addEventListener('change', sortTodos);
