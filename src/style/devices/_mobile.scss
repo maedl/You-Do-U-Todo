@@ -31,7 +31,34 @@ main {
 }
 
 .sorting-container {
-  padding-top: 4rem;
+  @include flex-center-col;
+
+  padding: 4rem;
+
+  h2 {
+    align-self: flex-start;
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    margin-left: -4rem;
+  }
+}
+
+.sorting-list {
+  display: flex;
+  flex-direction: column;
+
+  li {
+    margin-bottom: 2rem;
+
+    label {
+      font-size: 1.5rem;
+    }
+  }
+
+  input[type='radio'] {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
 }
 
 header {
