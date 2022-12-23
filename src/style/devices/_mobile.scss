@@ -377,6 +377,16 @@ and (max-device-height: 600px) {
     }
   }
 
+  .todo-container,
+  .done-container {
+    align-items: flex-start;
+    padding-left: 2rem;
+  }
+
+  .done-container {
+    margin-bottom: 2.5rem;
+  }
+
   .todo {
     width: 70vw;
   }
