@@ -1,8 +1,8 @@
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   font-size: rem(16px);
-  background: rgb(50, 50, 50);
-  background: var(--bg-gradient);
+  background: rgb(40, 40, 40);
+  // background: var(--bg-gradient);
   color: white;
 
   --header-height: 15vh;
@@ -12,7 +12,7 @@
   --green-color: rgb(59, 141, 34);
   --red-color: rgb(136, 24, 20);
   --background-color: rgb(29 28 28); // för root, footer & info-bar..
-  --bg-gradient: radial-gradient(circle, rgba(50, 50, 50, 1) 0%, rgba(46, 46, 46, 1) 39%, rgba(29, 28, 28, 1) 100%);
+  // --bg-gradient: linear-gradient(90deg, rgba(50,50,50,1) 0%, rgba(40,40,40,1) 100%);
   --rounded-corners: 10px;
   --box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.9);
 }
