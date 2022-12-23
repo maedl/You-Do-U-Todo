@@ -204,16 +204,12 @@ function checkDueDate(todoDueDate) {
   const today = new Date();
   let yesterday = newDateObject(today, -1);
   const dueDate = new Date(todoDueDate);
-  const duePlus5 = newDateObject(dueDate, 5);
-  /*
-  console.log({today});
-  console.log({yesterday});
-  console.log({dueDate});
-  console.log({duePlus5});
-*/
+  const dueIn5 = newDateObject(today, 5);
+
+
   if (yesterday > dueDate) {
     return ' passed-due';
-  } else if (dueDate <= duePlus5 && today >= dueDate) {
+  } else if (dueDate <= dueIn5) {
     return ' due-in-five';
   } else {
     return '';
