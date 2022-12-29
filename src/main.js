@@ -51,6 +51,7 @@ function setEventListeners() {
 }
 function toggleAddTodo() {
   inputSection.classList.toggle('input-active');
+  todoInput.classList.remove('placeholder-red');
   clearForm();
 }
 
@@ -68,14 +69,17 @@ function createTodo() {
 
   if (title.length < 1) {
     todoInput.setAttribute('placeholder', 'Please add a title');
+    todoInput.classList.add('placeholder-red');
   } else if (alreadyExists) {
     clearForm();
     todoInput.setAttribute('placeholder', 'Todo already exists!');
+    todoInput.classList.add('placeholder-red');
   } else {
     const todo = new Todo(title, category, dueDate, timeAdded, false);
     todoArr.push(todo);
     toggleAddTodo();
     todoInput.setAttribute('placeholder', 'Type something to do..');
+    todoInput.classList.remove('placeholder-red');
     setArrToStorage();
     renderTodos();
   }
@@ -308,6 +312,8 @@ function handleDeleteAllBtn(done) {
 
 function clearForm() {
   document.querySelector('.input-section').reset();
+  todoInput.classList.remove('placeholder-red');
+  todoInput.setAttribute('placeholder', 'Type something to do..');
 }
 
 function toggleSortingMenu() {
