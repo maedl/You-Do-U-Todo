@@ -20,15 +20,27 @@
 }
 
 .passed-due {
-  border: 1px solid rgba(255, 0, 0, 0.6);
+  color: rgb(255, 0, 0);
+  font-style: italic;
+  text-decoration: underline;
 }
 
 .due-in-five {
-  border: 1px solid rgba(243, 247, 36, 0.4);
+  color: rgb(243, 247, 36);
+  font-style: italic;
 }
 
 .hidden {
   display: none;
+}
+
+.placeholder-red {
+  &::placeholder {
+    opacity: 1;
+    color: red;
+  }
+
+  
 }
 
 .close-modal-btn {
@@ -49,4 +61,15 @@
   font-size: 1.25rem;
   font-weight: 700;
   border-radius: 50%;
+}
+
+.del-all-complete-btn {
+  cursor: pointer;
+  border-radius: var(--rounded-corners);
+  box-shadow: var(--box-shadow);
+  background-color: var(--red-color);
+  padding: 0.5rem 1.5rem;
+  color: white;
+  border: none;
+
 }

@@ -13,21 +13,56 @@ main {
   position: relative;
 }
 
-.sorting-section {
+.sorting-section,
+.about-section {
   display: none;
 }
 
-.sorting-active {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.sorting-active,
+.about-active {
   background-color: var(--background-color);
-  position: absolute;
   top: var(--header-height);
   left: 0;
   right: 0;
   height: calc(100vh - var(--header-height));
   z-index: 1;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.sorting-active {
+  align-items: center;
+}
+
+.about-active {
+  padding: 4rem 2rem;
+  line-height: 1.75;
+  overflow-y: auto;
+  
+  h2 {
+    margin-bottom: 1.25rem;
+  }
+
+  p, a {
+    font-size: 1.125rem;
+    margin-bottom: 1.75rem;
+  }
+
+  a, a:visited {
+    color: rgb(255, 255, 255);
+  }
+
+  span.ex-icon {
+    margin: 0 0.25rem;
+    font-size: 1.75rem;
+  }
+
+  button {
+    margin: 0.125rem;
+    padding: 0.25rem 0.75rem;
+  }
 }
 
 .sorting-container {
@@ -48,10 +83,10 @@ main {
   flex-direction: column;
 
   li {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 
     label {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
     }
   }
 
@@ -83,19 +118,22 @@ header {
   background: rgb(58, 78, 180);
   background: linear-gradient(
     90deg,
-    rgba(58, 78, 180, 0.9047327549183736) 0%,
-    rgba(46, 69, 185, 0.8543125868511467) 50%,
-    rgba(36, 67, 225, 0.9047327549183736) 100%
+    rgba(58, 78, 180, 0.85) 0%,
+    rgba(46, 69, 185, 0.85) 50%,
+    rgba(36, 67, 225, 0.85) 100%
   );
 }
 
 .logo-container {
   h1 {
-    text-shadow: -1px 2px 2px rgba(114, 114, 114, 1);
+    font-family: var(--logo-font);
+    text-shadow: -1px 2px 5px rgba(0, 0, 0, 0.7);
   }
 }
 
 .sub-container {
+  font-family: var(--logo-font);
+
   .logo-subtext {
     font-size: 0.85rem;
   }
@@ -109,7 +147,8 @@ header {
   right: 0;
   width: 100%;
   // border: 1px solid blue;
-  padding: 0.25rem;
+  padding: 0.25rem 1rem;
+  box-shadow: var(--box-shadow);
 }
 
 .input-section {
@@ -210,17 +249,6 @@ header {
     align-self: flex-start;
     margin-bottom: 0.5rem;
   }
-
-  button {
-    cursor: pointer;
-    border-radius: var(--rounded-corners);
-    box-shadow: var(--box-shadow);
-    background-color: var(--red-color);
-    padding: 0.5rem 1.5rem;
-
-    color: white;
-    border: none;
-  }
 }
 
 .done-section {
@@ -266,7 +294,6 @@ ul {
   width: 2.5rem;
 
   input[type='checkbox'] {
-    border-radius: 50%;
     height: 1.5rem;
     width: 1.5rem;
   }
@@ -338,7 +365,7 @@ footer {
   .footer-icon {
     position: absolute;
     bottom: 2vh;
-    font-size: 3rem;
+    font-size: 2.5rem;
     cursor: pointer;
     text-shadow: -1px 2px 2px rgba(114, 114, 114, 0.9);
   }
@@ -347,7 +374,7 @@ footer {
     left: 6vw;
   }
 
-  .settings-icon {
+  .about-icon {
     right: 6vw;
   }
 }

@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import './style/style.scss';
 import Todo from './Todo';
-import { setCategoryIcon } from './utils';
+import { setCategoryIcon, checkDueDate, aboutContent } from './utils';
 
 /**************** Variables ****************/
 
@@ -11,7 +11,6 @@ let todoArr = [];
 
 const todoAmountSpan = document.querySelector('.info-bar span');
 
-const doneSection = document.querySelector('.done-section');
 const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
 const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
@@ -31,7 +30,10 @@ const closeSortingBtn = document.querySelector('.close-sorting-btn');
 const sortingSection = document.querySelector('.sorting-section');
 const sortingRadios = document.querySelectorAll('input[name="sorting-radio-btn"]');
 
-const settingsBtn = document.querySelector('.settings-icon');
+const aboutBtn = document.querySelector('.about-icon');
+const closeAboutBtn = document.querySelector('.close-about-btn');
+const aboutSection = document.querySelector('.about-section');
+const aboutContainer = document.querySelector('.about-section div');
 
 /**************** Functions ****************/
 
@@ -41,7 +43,8 @@ function setEventListeners() {
   closeInputBtn.addEventListener('click', toggleAddTodo);
   sortingBtn.addEventListener('click', toggleSortingMenu);
   closeSortingBtn.addEventListener('click', toggleSortingMenu);
-  settingsBtn.addEventListener('click', openSettings);
+  aboutBtn.addEventListener('click', toggleHelpMenu);
+  closeAboutBtn.addEventListener('click', toggleHelpMenu);
   addTodoBtn.addEventListener('click', createTodo);
   resetFormBtn.addEventListener('click', clearForm);
 
@@ -54,6 +57,12 @@ function toggleAddTodo() {
   clearForm();
 }
 
+function clearForm() {
+  document.querySelector('.input-section').reset();
+  todoInput.classList.remove('placeholder-red');
+  todoInput.setAttribute('placeholder', 'Type something to do..');
+}
+
 function createTodo() {
   const title = todoInput.value;
   const category = categoryInput.options[categoryInput.selectedIndex].value;
@@ -63,14 +72,17 @@ function createTodo() {
   todoArr.forEach(todo => {
     if (title === todo.title) {
       alreadyExists = true;
+      return;
     }
   });
 
   if (title.length < 1) {
     todoInput.setAttribute('placeholder', 'Please add a title');
+    todoInput.classList.add('placeholder-red');
   } else if (alreadyExists) {
     clearForm();
     todoInput.setAttribute('placeholder', 'Todo already exists!');
+    todoInput.classList.add('placeholder-red');
   } else {
     const todo = new Todo(title, category, dueDate, timeAdded, false);
     todoArr.push(todo);
@@ -166,7 +178,7 @@ function renderTodos() {
     const deadlineClass = checkDueDate(todo.dueDate);
 
     container.innerHTML += `
-      <li class="todo${deadlineClass}">
+      <li class="todo">
         <div class="left-grid">
           <input type="checkbox" data-id="${todo.title}">
         </div>
@@ -174,7 +186,7 @@ function renderTodos() {
         <div class="middle-grid">
           <p class="todo-title${textClass}">${todo.title}</p>
           <div class="date-section${textClass}">
-            Due: <span>${todo.dueDate}</span>
+            Due: <span class="${deadlineClass}">${todo.dueDate}</span>
           </div>
         </div>
 
@@ -200,62 +212,11 @@ function renderTodos() {
   renderInfoBar(doneCounter);
 }
 
-function checkDueDate(todoDueDate) {
-  const today = new Date();
-  let yesterday = newDateObject(today, -1);
-  const dueDate = new Date(todoDueDate);
-  const dueIn5 = newDateObject(today, 5);
-
-
-  if (yesterday > dueDate) {
-    return ' passed-due';
-  } else if (dueDate <= dueIn5) {
-    return ' due-in-five';
-  } else {
-    return '';
-  }
-}
-
-/**
- *
- * @param {date object} date to moidify
- * @param {number} amount of days
- * @returns new date object
- * used so the original date object is not changed
- */
-function newDateObject(date, amount) {
-  let tempDate = new Date(date);
-  tempDate.setDate(tempDate.getDate() + amount);
-  return tempDate;
-}
 
 function setBtnListeners() {
   document.querySelectorAll('.delete-btn').forEach(button => {
     button.addEventListener('click', deleteTodo);
   });
-}
-
-function deleteTodo(e) {
-  const clickedBtnTitle = e.currentTarget.dataset.id;
-  let indexToDel;
-
-  for (let i = 0; i < todoArr.length; i++) {
-    if (todoArr[i].title === clickedBtnTitle) {
-      indexToDel = i;
-    }
-  }
-  todoArr.splice(Number(indexToDel), 1);
-  setArrToStorage();
-  renderTodos();
-}
-
-function deleteAllCompleted() {
-  while (todoArr.length > 0) {
-    todoArr.pop();
-  }
-  setArrToStorage();
-  renderTodos();
-  delAllCompleteBtn.classList.toggle('hidden'); // if button is clicked, it does its job and disappears
 }
 
 function handleCheckboxes(e) {
@@ -286,26 +247,47 @@ function manageCompleteStatus(e) {
 /**
  *
  * @param {number} doneCounter
- * TODO: own function for delete button
  */
 function renderInfoBar(doneCounter) {
   let done = doneCounter;
   todoAmountSpan.innerText = '';
   if (todoArr.length > 0) {
     todoAmountSpan.innerText = `${done} / ${todoArr.length} completed`;
-
-    if (todoArr.length === done) {
-      delAllCompleteBtn.classList.remove('hidden');
-    }
   }
+  handleDeleteAllBtn(done);
+}
 
-  if (todoArr.length > 0 && done !== todoArr.length) {
+function handleDeleteAllBtn(done) {
+  let doneLength = done;
+  if (todoArr.length > 0 && todoArr.length === doneLength) {
+    delAllCompleteBtn.classList.remove('hidden');
+  }
+  else if (todoArr.length > 0 && done !== todoArr.length) {
     delAllCompleteBtn.classList.add('hidden');
   }
 }
 
-function clearForm() {
-  document.querySelector('.input-section').reset();
+function deleteTodo(e) {
+  const clickedBtnTitle = e.currentTarget.dataset.id;
+  let indexToDel;
+
+  for (let i = 0; i < todoArr.length; i++) {
+    if (todoArr[i].title === clickedBtnTitle) {
+      indexToDel = i;
+    }
+  }
+  todoArr.splice(Number(indexToDel), 1);
+  setArrToStorage();
+  renderTodos();
+}
+
+function deleteAllCompleted() {
+  while (todoArr.length > 0) {
+    todoArr.pop();
+  }
+  setArrToStorage();
+  renderTodos();
+  delAllCompleteBtn.classList.toggle('hidden'); // if button is clicked, it does its job and disappears
 }
 
 function toggleSortingMenu() {
@@ -315,7 +297,19 @@ function toggleSortingMenu() {
 /**
  * meny eller about eller nåt..  men just nu gör den ingenting!
  */
-function openSettings() {}
+function toggleHelpMenu() {
+  aboutSection.classList.toggle('about-active');
+  setParagraphContent();
+}
+
+function setParagraphContent() {
+  if (aboutSection.classList.contains('about-active')) {
+    aboutContainer.innerHTML = aboutContent;
+  }
+  else {
+    aboutContainer.innerHTML = '';
+  }
+}
 
 /**************** Program Flow ****************/
 
