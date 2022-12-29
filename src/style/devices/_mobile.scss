@@ -83,9 +83,9 @@ header {
   background: rgb(58, 78, 180);
   background: linear-gradient(
     90deg,
-    rgba(58, 78, 180, 0.9047327549183736) 0%,
-    rgba(46, 69, 185, 0.8543125868511467) 50%,
-    rgba(36, 67, 225, 0.9047327549183736) 100%
+    rgba(58, 78, 180, 0.85) 0%,
+    rgba(46, 69, 185, 0.85) 50%,
+    rgba(36, 67, 225, 0.85) 100%
   );
 }
 
@@ -98,7 +98,7 @@ header {
 
 .sub-container {
   font-family: var(--logo-font);
-  
+
   .logo-subtext {
     font-size: 0.85rem;
   }

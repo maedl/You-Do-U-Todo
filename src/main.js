@@ -166,7 +166,7 @@ function renderTodos() {
     const deadlineClass = checkDueDate(todo.dueDate);
 
     container.innerHTML += `
-      <li class="todo${deadlineClass}">
+      <li class="todo">
         <div class="left-grid">
           <input type="checkbox" data-id="${todo.title}">
         </div>
@@ -174,7 +174,7 @@ function renderTodos() {
         <div class="middle-grid">
           <p class="todo-title${textClass}">${todo.title}</p>
           <div class="date-section${textClass}">
-            Due: <span>${todo.dueDate}</span>
+            Due: <span class="${deadlineClass}">${todo.dueDate}</span>
           </div>
         </div>
 
@@ -286,20 +286,22 @@ function manageCompleteStatus(e) {
 /**
  *
  * @param {number} doneCounter
- * TODO: own function for delete button
  */
 function renderInfoBar(doneCounter) {
   let done = doneCounter;
   todoAmountSpan.innerText = '';
   if (todoArr.length > 0) {
     todoAmountSpan.innerText = `${done} / ${todoArr.length} completed`;
-
-    if (todoArr.length === done) {
-      delAllCompleteBtn.classList.remove('hidden');
-    }
   }
+  handleDeleteAllBtn(done);
+}
 
-  if (todoArr.length > 0 && done !== todoArr.length) {
+function handleDeleteAllBtn(done) {
+  let doneLength = done;
+  if (todoArr.length > 0 && todoArr.length === doneLength) {
+    delAllCompleteBtn.classList.remove('hidden');
+  }
+  else if (todoArr.length > 0 && done !== todoArr.length) {
     delAllCompleteBtn.classList.add('hidden');
   }
 }
