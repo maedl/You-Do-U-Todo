@@ -39,5 +39,18 @@
     right: 20vw;
     border-top-left-radius: var(--rounded-corners);
     border-top-right-radius: var(--rounded-corners);
+
+    .footer-icon {
+      font-size: 3.5rem; 
+    }
+
+    .sorting-icon {
+      left: 3vw;
+    }
+  
+    .settings-icon {
+      right: 3vw;
+    }
   }
+
 }
