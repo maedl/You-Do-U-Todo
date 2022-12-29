@@ -53,3 +53,30 @@ function newDateObject(date, amount) {
   tempDate.setDate(tempDate.getDate() + amount);
   return tempDate;
 }
+
+let aboutContent = `
+<h2>How to use:</h2>
+  <p>
+    First off, start by adding an item to the list using the plus-button. Add your title, due date and category and press "Add". Repeat until satisfied!
+  </p>
+  <p>
+    If you wish to sort your to do-list, press the <span class="material-symbols-outlined footer-icon sorting-icon"> sort </span> button and choose your preferred way.
+  </p>
+  <p>
+    Your tasks can be removed by clicking the <span class="material-symbols-outlined ex-icon"> delete </span> button. Or if you prefer, use the <button type="button" class="del-all-complete-btn">Remove all done</button> . This button will emerge when you have completed all tasks. Mark them as done using the checkbox on the left of your to do title. <input type="checkbox"> 
+  </p>
+  <p>
+    You can easily see if your due date is expired or close to expiration. Expired dates are displayed <span class="passed-due"> in red italic and underlined.</span> Any task's date expiring within 5 days will be displayed <span class="due-in-five"> in yellow italic.
+  </p>
+  <p>
+    Your tasks will be saved on your device using a small portion of your local memory. 
+  <h2>Contact the developer</h2>
+  <p>
+    Send me an e-mail at: <a href="mailto:max.edlund@medieinstitutet.se">max.edlund@medieinstitutet.se</a>
+  </p>
+  <p>
+    Or if you want to see what else I am up to, check my <a href="https://github.com/maedl">Github</a> or my <a href="https://www.linkedin.com/in/max-edlund/">LinkedIn</a>
+  </p>
+`;
+
+export { aboutContent };

@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import './style/style.scss';
 import Todo from './Todo';
-import { setCategoryIcon, checkDueDate } from './utils';
+import { setCategoryIcon, checkDueDate, aboutContent } from './utils';
 
 /**************** Variables ****************/
 
@@ -11,7 +11,6 @@ let todoArr = [];
 
 const todoAmountSpan = document.querySelector('.info-bar span');
 
-const doneSection = document.querySelector('.done-section');
 const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
 const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
@@ -31,7 +30,10 @@ const closeSortingBtn = document.querySelector('.close-sorting-btn');
 const sortingSection = document.querySelector('.sorting-section');
 const sortingRadios = document.querySelectorAll('input[name="sorting-radio-btn"]');
 
-const settingsBtn = document.querySelector('.settings-icon');
+const aboutBtn = document.querySelector('.about-icon');
+const closeAboutBtn = document.querySelector('.close-about-btn');
+const aboutSection = document.querySelector('.about-section');
+const aboutContainer = document.querySelector('.about-section div');
 
 /**************** Functions ****************/
 
@@ -41,7 +43,8 @@ function setEventListeners() {
   closeInputBtn.addEventListener('click', toggleAddTodo);
   sortingBtn.addEventListener('click', toggleSortingMenu);
   closeSortingBtn.addEventListener('click', toggleSortingMenu);
-  settingsBtn.addEventListener('click', openSettings);
+  aboutBtn.addEventListener('click', toggleHelpMenu);
+  closeAboutBtn.addEventListener('click', toggleHelpMenu);
   addTodoBtn.addEventListener('click', createTodo);
   resetFormBtn.addEventListener('click', clearForm);
 
@@ -294,7 +297,19 @@ function toggleSortingMenu() {
 /**
  * meny eller about eller nåt..  men just nu gör den ingenting!
  */
-function openSettings() {}
+function toggleHelpMenu() {
+  aboutSection.classList.toggle('about-active');
+  setParagraphContent();
+}
+
+function setParagraphContent() {
+  if (aboutSection.classList.contains('about-active')) {
+    aboutContainer.innerHTML = aboutContent;
+  }
+  else {
+    aboutContainer.innerHTML = '';
+  }
+}
 
 /**************** Program Flow ****************/
 
