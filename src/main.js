@@ -1,7 +1,7 @@
 import { doc } from 'prettier';
 import './style/style.scss';
 import Todo from './Todo';
-import { setCategoryIcon } from './utils';
+import { setCategoryIcon, checkDueDate } from './utils';
 
 /**************** Variables ****************/
 
@@ -51,8 +51,13 @@ function setEventListeners() {
 }
 function toggleAddTodo() {
   inputSection.classList.toggle('input-active');
-  todoInput.classList.remove('placeholder-red');
   clearForm();
+}
+
+function clearForm() {
+  document.querySelector('.input-section').reset();
+  todoInput.classList.remove('placeholder-red');
+  todoInput.setAttribute('placeholder', 'Type something to do..');
 }
 
 function createTodo() {
@@ -64,6 +69,7 @@ function createTodo() {
   todoArr.forEach(todo => {
     if (title === todo.title) {
       alreadyExists = true;
+      return;
     }
   });
 
@@ -79,7 +85,6 @@ function createTodo() {
     todoArr.push(todo);
     toggleAddTodo();
     todoInput.setAttribute('placeholder', 'Type something to do..');
-    todoInput.classList.remove('placeholder-red');
     setArrToStorage();
     renderTodos();
   }
@@ -204,62 +209,11 @@ function renderTodos() {
   renderInfoBar(doneCounter);
 }
 
-function checkDueDate(todoDueDate) {
-  const today = new Date();
-  let yesterday = newDateObject(today, -1);
-  const dueDate = new Date(todoDueDate);
-  const dueIn5 = newDateObject(today, 5);
-
-
-  if (yesterday > dueDate) {
-    return ' passed-due';
-  } else if (dueDate <= dueIn5) {
-    return ' due-in-five';
-  } else {
-    return '';
-  }
-}
-
-/**
- *
- * @param {date object} date to moidify
- * @param {number} amount of days
- * @returns new date object
- * used so the original date object is not changed
- */
-function newDateObject(date, amount) {
-  let tempDate = new Date(date);
-  tempDate.setDate(tempDate.getDate() + amount);
-  return tempDate;
-}
 
 function setBtnListeners() {
   document.querySelectorAll('.delete-btn').forEach(button => {
     button.addEventListener('click', deleteTodo);
   });
-}
-
-function deleteTodo(e) {
-  const clickedBtnTitle = e.currentTarget.dataset.id;
-  let indexToDel;
-
-  for (let i = 0; i < todoArr.length; i++) {
-    if (todoArr[i].title === clickedBtnTitle) {
-      indexToDel = i;
-    }
-  }
-  todoArr.splice(Number(indexToDel), 1);
-  setArrToStorage();
-  renderTodos();
-}
-
-function deleteAllCompleted() {
-  while (todoArr.length > 0) {
-    todoArr.pop();
-  }
-  setArrToStorage();
-  renderTodos();
-  delAllCompleteBtn.classList.toggle('hidden'); // if button is clicked, it does its job and disappears
 }
 
 function handleCheckboxes(e) {
@@ -310,10 +264,27 @@ function handleDeleteAllBtn(done) {
   }
 }
 
-function clearForm() {
-  document.querySelector('.input-section').reset();
-  todoInput.classList.remove('placeholder-red');
-  todoInput.setAttribute('placeholder', 'Type something to do..');
+function deleteTodo(e) {
+  const clickedBtnTitle = e.currentTarget.dataset.id;
+  let indexToDel;
+
+  for (let i = 0; i < todoArr.length; i++) {
+    if (todoArr[i].title === clickedBtnTitle) {
+      indexToDel = i;
+    }
+  }
+  todoArr.splice(Number(indexToDel), 1);
+  setArrToStorage();
+  renderTodos();
+}
+
+function deleteAllCompleted() {
+  while (todoArr.length > 0) {
+    todoArr.pop();
+  }
+  setArrToStorage();
+  renderTodos();
+  delAllCompleteBtn.classList.toggle('hidden'); // if button is clicked, it does its job and disappears
 }
 
 function toggleSortingMenu() {
