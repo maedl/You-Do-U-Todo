@@ -238,7 +238,6 @@ function renderTodos() {
   renderInfoBar(doneCounter);
 }
 
-
 function setBtnListeners() {
   document.querySelectorAll('.delete-btn').forEach(button => {
     button.addEventListener('click', deleteTodo);
