@@ -174,17 +174,6 @@ function sortTodos(e) {
   closeSortingMenu();
 }
 
-function todoFadeoutAnimation() { 
-  gsap.to('.todo', {duration: 0.25, stagger: 0.1, opacity: 0, onComplete: renderTodos});
-  gsap.to('.todo', {duration: 0.25, stagger: 0.1, x: -10, onComplete: todoFadeinAnimation});
-}
-
-function todoFadeinAnimation() {
-  gsap.to('.todo', {duration: 0, x: -10, opacity: 0})
-  gsap.to('.todo', {duration: 0.25, delay: 0.25, stagger: 0.1, x: 0})
-  gsap.to('.todo', {duration: 0.25, delay: 0.25, stagger: 0.1, opacity: 1});
-}
-
 function renderTodos() {
   getArrFromStorage();
   let container = '';
@@ -271,12 +260,16 @@ function manageCompleteStatus(e) {
   }
   setArrToStorage();
   fadeOutTodo(clickedTodo, completedState);
-  console.log(clickedTodo);
 }
 
+/**
+ * 
+ * @param {HTML element} el 
+ * @param {bool} isCompleted 
+ * animates fadeout and position on toggled to do. up or down
+ */
 function fadeOutTodo(el, isCompleted) {
   const element = el;
-  console.log(element.completed)
 
   gsap.to(element, {duration: 1, opacity: 0.2});
   if (isCompleted) {
@@ -285,6 +278,17 @@ function fadeOutTodo(el, isCompleted) {
   else {
     gsap.to(element, {duration: 0.3, y: 60, delay: 0.2, onComplete: renderTodos});
   }
+}
+
+function todoFadeoutAnimation() { 
+  gsap.to('.todo', {duration: 0.25, stagger: 0.1, opacity: 0, onComplete: renderTodos});
+  gsap.to('.todo', {duration: 0.25, stagger: 0.1, x: -10, onComplete: todoFadeinAnimation});
+}
+
+function todoFadeinAnimation() {
+  gsap.to('.todo', {duration: 0, x: -10, opacity: 0})
+  gsap.to('.todo', {duration: 0.25, delay: 0.25, stagger: 0.1, x: 0})
+  gsap.to('.todo', {duration: 0.25, delay: 0.25, stagger: 0.1, opacity: 1});
 }
 
 /**
