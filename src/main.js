@@ -15,7 +15,7 @@ const todoContainer = document.querySelector('.todo-container');
 const doneContainer = document.querySelector('.done-container');
 const delAllCompleteBtn = document.querySelector('.del-all-complete-btn');
 
-const openAddBtn = document.querySelector('.open-todo-input-btn');
+const openInputBtn = document.querySelector('.open-todo-input-btn');
 const inputSection = document.querySelector('.input-section');
 const closeInputBtn = document.querySelector('.close-input');
 const addTodoBtn = document.querySelector('.add-todo-btn');
@@ -38,20 +38,29 @@ const aboutContainer = document.querySelector('.about-section div');
 /**************** Functions ****************/
 
 function setEventListeners() {
-  openAddBtn.addEventListener('click', toggleAddTodo);
-  delAllCompleteBtn.addEventListener('click', deleteAllCompleted);
+  openInputBtn.addEventListener('click', openTodoInput);
   closeInputBtn.addEventListener('click', toggleAddTodo);
-  sortingBtn.addEventListener('click', toggleSortingMenu);
-  closeSortingBtn.addEventListener('click', toggleSortingMenu);
-  aboutBtn.addEventListener('click', toggleHelpMenu);
-  closeAboutBtn.addEventListener('click', toggleHelpMenu);
+    
   addTodoBtn.addEventListener('click', createTodo);
   resetFormBtn.addEventListener('click', clearForm);
+
+  sortingBtn.addEventListener('click', openSortingMenu);
+  closeSortingBtn.addEventListener('click', toggleSortingMenu);
+  aboutBtn.addEventListener('click', openHelpMenu);
+  closeAboutBtn.addEventListener('click', toggleHelpMenu);
+
+  delAllCompleteBtn.addEventListener('click', deleteAllCompleted);
 
   sortingRadios.forEach(element => {
     element.addEventListener('change', sortTodos);
   });
 }
+
+function openTodoInput() {
+  toggleAddTodo();
+  gsap.from(inputSection, {duration: 0.25, opacity: 0});
+}
+
 function toggleAddTodo() {
   inputSection.classList.toggle('input-active');
   clearForm();
@@ -290,13 +299,20 @@ function deleteAllCompleted() {
   delAllCompleteBtn.classList.toggle('hidden'); // if button is clicked, it does its job and disappears
 }
 
+function openSortingMenu() {
+  gsap.from(sortingSection, {duration: 0.25, opacity: 0});
+  toggleSortingMenu();
+}
+
 function toggleSortingMenu() {
   sortingSection.classList.toggle('sorting-active');
 }
 
-/**
- * meny eller about eller nåt..  men just nu gör den ingenting!
- */
+function openHelpMenu() {
+  gsap.from(aboutSection, {duration: 0.25, opacity: 0});
+  toggleHelpMenu();
+}
+
 function toggleHelpMenu() {
   aboutSection.classList.toggle('about-active');
   setParagraphContent();
