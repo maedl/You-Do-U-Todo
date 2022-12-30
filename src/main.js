@@ -170,8 +170,20 @@ function sortTodos(e) {
       break;
   }
   setArrToStorage();
-  renderTodos();
+  todoFadeoutAnimation();
   closeSortingMenu();
+}
+
+function todoFadeoutAnimation() {
+   
+  gsap.to('.todo', {duration: 0.25, stagger: 0.1, opacity: 0, onComplete: renderTodos});
+  gsap.to('.todo', {duration: 0.25, stagger: 0.1, x: -10, onComplete: todoFadeinAnimation});
+}
+
+function todoFadeinAnimation() {
+  gsap.to('.todo', {duration: 0, x: -10, opacity: 0})
+  gsap.to('.todo', {duration: 0.25, delay: 0.25, stagger: 0.1, x: 0})
+  gsap.to('.todo', {duration: 0.25, delay: 0.25, stagger: 0.1, opacity: 1});
 }
 
 function renderTodos() {
