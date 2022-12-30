@@ -25,12 +25,12 @@ const todoInput = document.querySelector('#todo-input');
 const dateInput = document.querySelector('#todo-date');
 const categoryInput = document.querySelector('#todo-category');
 
-const sortingBtn = document.querySelector('.sorting-icon');
+const sortingBtn = document.querySelector('.sorting-btn');
 const closeSortingBtn = document.querySelector('.close-sorting-btn');
 const sortingSection = document.querySelector('.sorting-section');
 const sortingRadios = document.querySelectorAll('input[name="sorting-radio-btn"]');
 
-const aboutBtn = document.querySelector('.about-icon');
+const aboutBtn = document.querySelector('.about-btn');
 const closeAboutBtn = document.querySelector('.close-about-btn');
 const aboutSection = document.querySelector('.about-section');
 const aboutContainer = document.querySelector('.about-section div');
@@ -271,7 +271,7 @@ function manageCompleteStatus(e) {
 function fadeOutTodo(el, isCompleted) {
   const element = el;
 
-  gsap.to(element, {duration: 1, opacity: 0});
+  gsap.to(element, {duration: 0.4, opacity: 0});
   if (isCompleted) {
     gsap.to(element, {duration: 0.3, y: -60, delay: 0.2, onComplete: renderTodos});
   }

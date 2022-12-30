@@ -13,6 +13,12 @@
     border-bottom-right-radius: var(--rounded-corners);
   }
 
+  .sorting-active,
+  .about-active {
+    left: 20vw;
+    right: 20vw;
+  }
+
   .input-active {
     left: 20vw;
     right: 20vw;
@@ -44,11 +50,11 @@
       font-size: 3.5rem; 
     }
 
-    .sorting-icon {
+    .sorting-btn {
       left: 3vw;
     }
   
-    .about-icon {
+    .about-btn {
       right: 3vw;
     }
   }
