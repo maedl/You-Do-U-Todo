@@ -204,7 +204,7 @@ function renderTodos() {
     const deadlineClass = checkDueDate(todo.dueDate);
 
     container.innerHTML += `
-      <li class="todo">
+      <li class="todo" data-id="${todo.title}">
         <div class="left-grid">
           <input type="checkbox" data-id="${todo.title}">
         </div>
@@ -259,14 +259,32 @@ function handleCheckboxes(e) {
 
 function manageCompleteStatus(e) {
   const clickedTitle = e.target.dataset.id;
+  let clickedTodo;
+  let completedState;
 
   for (let i = 0; i < todoArr.length; i++) {
     if (clickedTitle === todoArr[i].title) {
+      completedState = todoArr[i].completed;
       todoArr[i].toggleComplete();
+      clickedTodo = document.querySelector(`.todo[data-id="${clickedTitle}"]`);
     }
   }
   setArrToStorage();
-  renderTodos();
+  fadeOutTodo(clickedTodo, completedState);
+  console.log(clickedTodo);
+}
+
+function fadeOutTodo(el, isCompleted) {
+  const element = el;
+  console.log(element.completed)
+
+  gsap.to(element, {duration: 1, opacity: 0.2});
+  if (isCompleted) {
+    gsap.to(element, {duration: 0.3, y: -60, delay: 0.2, onComplete: renderTodos});
+  }
+  else {
+    gsap.to(element, {duration: 0.3, y: 60, delay: 0.2, onComplete: renderTodos});
+  }
 }
 
 /**
@@ -311,7 +329,7 @@ function deleteAllCompleted() {
     todoArr.pop();
   }
   setArrToStorage();
-  renderTodos();
+  todoFadeoutAnimation();
   delAllCompleteBtn.classList.toggle('hidden'); // if button is clicked, it does its job and disappears
 }
 
