@@ -240,6 +240,7 @@ header {
 
   .add-todo-btn,
   .reset-btn {
+    cursor: pointer;
     border-radius: var(--rounded-corners);
     box-shadow: var(--box-shadow);
     color: white;
@@ -386,19 +387,28 @@ footer {
   background-color: var(--background-color);
   z-index: 20;
 
-  .footer-icon {
+  .footer-btn {
     position: absolute;
     bottom: 2vh;
-    font-size: 2.5rem;
     cursor: pointer;
+    background: transparent;
+    border: none;
+    color: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footer-icon {
+    font-size: 2.5rem;
     text-shadow: -1px 2px 2px rgba(114, 114, 114, 0.9);
   }
 
-  .sorting-icon {
+  .sorting-btn {
     left: 6vw;
   }
 
-  .about-icon {
+  .about-btn {
     right: 6vw;
   }
 }
