@@ -174,8 +174,7 @@ function sortTodos(e) {
   closeSortingMenu();
 }
 
-function todoFadeoutAnimation() {
-   
+function todoFadeoutAnimation() { 
   gsap.to('.todo', {duration: 0.25, stagger: 0.1, opacity: 0, onComplete: renderTodos});
   gsap.to('.todo', {duration: 0.25, stagger: 0.1, x: -10, onComplete: todoFadeinAnimation});
 }
