@@ -1,6 +1,6 @@
 # YouDoU - Todo App 📘✏️
 
-Individual project for JavaScript foundational course at Medieinstitutet. 
+Individual project for JavaScript foundational course at Medieinstitutet. In this project I tried to implement all necessary concepts
 
 ## Requirements
 

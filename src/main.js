@@ -271,7 +271,7 @@ function manageCompleteStatus(e) {
 function fadeOutTodo(el, isCompleted) {
   const element = el;
 
-  gsap.to(element, {duration: 1, opacity: 0.2});
+  gsap.to(element, {duration: 1, opacity: 0});
   if (isCompleted) {
     gsap.to(element, {duration: 0.3, y: -60, delay: 0.2, onComplete: renderTodos});
   }
