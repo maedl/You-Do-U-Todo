@@ -174,17 +174,6 @@ function sortTodos(e) {
   closeSortingMenu();
 }
 
-function todoFadeoutAnimation() { 
-  gsap.to('.todo', {duration: 0.25, stagger: 0.1, opacity: 0, onComplete: renderTodos});
-  gsap.to('.todo', {duration: 0.25, stagger: 0.1, x: -10, onComplete: todoFadeinAnimation});
-}
-
-function todoFadeinAnimation() {
-  gsap.to('.todo', {duration: 0, x: -10, opacity: 0})
-  gsap.to('.todo', {duration: 0.25, delay: 0.25, stagger: 0.1, x: 0})
-  gsap.to('.todo', {duration: 0.25, delay: 0.25, stagger: 0.1, opacity: 1});
-}
-
 function renderTodos() {
   getArrFromStorage();
   let container = '';
@@ -204,7 +193,7 @@ function renderTodos() {
     const deadlineClass = checkDueDate(todo.dueDate);
 
     container.innerHTML += `
-      <li class="todo">
+      <li class="todo" data-id="${todo.title}">
         <div class="left-grid">
           <input type="checkbox" data-id="${todo.title}">
         </div>
@@ -259,14 +248,47 @@ function handleCheckboxes(e) {
 
 function manageCompleteStatus(e) {
   const clickedTitle = e.target.dataset.id;
+  let clickedTodo;
+  let completedState;
 
   for (let i = 0; i < todoArr.length; i++) {
     if (clickedTitle === todoArr[i].title) {
+      completedState = todoArr[i].completed;
       todoArr[i].toggleComplete();
+      clickedTodo = document.querySelector(`.todo[data-id="${clickedTitle}"]`);
     }
   }
   setArrToStorage();
-  renderTodos();
+  fadeOutTodo(clickedTodo, completedState);
+}
+
+/**
+ * 
+ * @param {HTML element} el 
+ * @param {bool} isCompleted 
+ * animates fadeout and position on toggled to do. up or down
+ */
+function fadeOutTodo(el, isCompleted) {
+  const element = el;
+
+  gsap.to(element, {duration: 1, opacity: 0.2});
+  if (isCompleted) {
+    gsap.to(element, {duration: 0.3, y: -60, delay: 0.2, onComplete: renderTodos});
+  }
+  else {
+    gsap.to(element, {duration: 0.3, y: 60, delay: 0.2, onComplete: renderTodos});
+  }
+}
+
+function todoFadeoutAnimation() { 
+  gsap.to('.todo', {duration: 0.25, stagger: 0.1, opacity: 0, onComplete: renderTodos});
+  gsap.to('.todo', {duration: 0.25, stagger: 0.1, x: -10, onComplete: todoFadeinAnimation});
+}
+
+function todoFadeinAnimation() {
+  gsap.to('.todo', {duration: 0, x: -10, opacity: 0})
+  gsap.to('.todo', {duration: 0.25, delay: 0.25, stagger: 0.1, x: 0})
+  gsap.to('.todo', {duration: 0.25, delay: 0.25, stagger: 0.1, opacity: 1});
 }
 
 /**
@@ -311,7 +333,7 @@ function deleteAllCompleted() {
     todoArr.pop();
   }
   setArrToStorage();
-  renderTodos();
+  todoFadeoutAnimation();
   delAllCompleteBtn.classList.toggle('hidden'); // if button is clicked, it does its job and disappears
 }
 
