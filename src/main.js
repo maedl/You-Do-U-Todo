@@ -39,15 +39,15 @@ const aboutContainer = document.querySelector('.about-section div');
 
 function setEventListeners() {
   openInputBtn.addEventListener('click', openTodoInput);
-  closeInputBtn.addEventListener('click', toggleAddTodo);
+  closeInputBtn.addEventListener('click', closeTodoInput);
     
   addTodoBtn.addEventListener('click', createTodo);
   resetFormBtn.addEventListener('click', clearForm);
 
   sortingBtn.addEventListener('click', openSortingMenu);
-  closeSortingBtn.addEventListener('click', toggleSortingMenu);
+  closeSortingBtn.addEventListener('click', closeSortingMenu);
   aboutBtn.addEventListener('click', openHelpMenu);
-  closeAboutBtn.addEventListener('click', toggleHelpMenu);
+  closeAboutBtn.addEventListener('click', closeHelpMenu);
 
   delAllCompleteBtn.addEventListener('click', deleteAllCompleted);
 
@@ -59,6 +59,12 @@ function setEventListeners() {
 function openTodoInput() {
   toggleAddTodo();
   gsap.from(inputSection, {duration: 0.25, opacity: 0});
+}
+
+function closeTodoInput() {
+  const tl = gsap.timeline();
+  tl.to(inputSection, {duration: 0.25, opacity: 0, onComplete: toggleAddTodo})
+  tl.to(inputSection, {duration: 0.1, opacity: 1});
 }
 
 function toggleAddTodo() {
@@ -95,7 +101,7 @@ function createTodo() {
   } else {
     const todo = new Todo(title, category, dueDate, timeAdded, false);
     todoArr.push(todo);
-    toggleAddTodo();
+    closeTodoInput();
     todoInput.setAttribute('placeholder', 'Type something to do..');
     setArrToStorage();
     renderTodos();
@@ -165,7 +171,7 @@ function sortTodos(e) {
   }
   setArrToStorage();
   renderTodos();
-  toggleSortingMenu();
+  closeSortingMenu();
 }
 
 function renderTodos() {
@@ -304,6 +310,12 @@ function openSortingMenu() {
   toggleSortingMenu();
 }
 
+function closeSortingMenu() {
+  const tl = gsap.timeline();
+  tl.to(sortingSection, {duration: 0.25, opacity: 0, onComplete: toggleSortingMenu})
+  tl.to(sortingSection, {duration: 0.1, opacity: 1});
+}
+
 function toggleSortingMenu() {
   sortingSection.classList.toggle('sorting-active');
 }
@@ -311,6 +323,12 @@ function toggleSortingMenu() {
 function openHelpMenu() {
   gsap.from(aboutSection, {duration: 0.25, opacity: 0});
   toggleHelpMenu();
+}
+
+function closeHelpMenu() {
+  const tl = gsap.timeline();
+  tl.to(aboutSection, {duration: 0.25, opacity: 0, onComplete: toggleHelpMenu})
+  tl.to(aboutSection, {duration: 0.1, opacity: 1});
 }
 
 function toggleHelpMenu() {
