@@ -27,3 +27,4 @@ Individual project for JavaScript foundational course at Medieinstitutet.
 - Vite
 - ESLint
 - Prettier
+
