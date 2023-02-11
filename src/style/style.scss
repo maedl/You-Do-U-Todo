@@ -1,8 +1,0 @@
-@use 'utils/a11y'; // Om det inte funkar, byt @use mot @import <-- något lint-verktyg vill inte använda import
-@use 'vendor/reset';
-@use 'general'; // root/variabler..
-@use 'utils/util-classes';
-@use 'devices/mobile';
-@use 'devices/tablet';
-@use 'devices/laptop';
-@use 'devices/desktop';
